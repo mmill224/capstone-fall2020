@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  color: #113311;
+  background-color: #eaefea;
+  font-family: 'Montserrat';
+  font-size: 16px;
+}
+
+.logo {
+  margin-top: 10em;
+  text-align: center;
+}
+
+p {
+  font-size: 1.5em;
+}
+
+.card {
+  background-color: #fafffa;
+  margin: 5em 1.5em;
+  padding: 1em;
+  border-radius: 10px;
+}
+
+.button {
+  font-size: 24px;
+  width: 4em;
+  padding: .5em 1.5em;
+  margin: auto;
+  margin-top: .8em;
+  border-radius: 10px;
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  background-color: #aaccaa;
+  color: #ffffff;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+}
+
+.button:hover {
+  background-color: #bbddbb;
+}
+
+.button:focus {
+  background-color: #bbddbb;
+  outline: none;
+}
+
+input {
+  border-style: none;
+  border-radius: 10px;
+  background-color: #eaefea;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  width: fill;
+  padding-left: 1em;
+  height: 1.5em;
+  color: #558855;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+}
+
+input:focus {
+  font-weight: bold;
+  border-style: none;
+  outline: none;
+  background-color: #dadfda;
+}
+
+input:hover {
+  font-weight: bold;
+  border-style: none;
+  outline: none;
+  background-color: #dadfda;
+}
+/*# sourceMappingURL=sign-up.css.map */
