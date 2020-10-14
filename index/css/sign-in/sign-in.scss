@@ -3,15 +3,17 @@
 body{
     margin: 0;
     padding: 0;
-    color: #ffffff;
+    color: #113311;
     background-color: #eaefea;
     font-family: 'Montserrat';
     font-size: 16px;
+    overflow: hidden;
 }
 
 .logo{
     margin-top: 10em;
-    text-align: center;  
+    text-align: center;
+    transform: rotate(-2deg);
 }
 
 p{
@@ -19,7 +21,7 @@ p{
 }
 
 .card{
-    background-color: #aaccaa;
+    background-color: #fafffa;
     margin: 5em 1.5em;
     padding: 1em;
     border-radius: 10px;
@@ -34,40 +36,62 @@ p{
     border-radius: 10px;
     color: inherit;
     display: block;
-    background-color: #f0fff0;
-    color: #224422;
+    background-color: #aaccaa;
+    color: #ffffff;
     text-decoration: none;
     transition: background-color .5s;
     &:hover{
-        background-color: #fafffa;
+        background-color: #bbddbb;
     }
     &:focus{
-        background-color: #ffffff;
-        outline: none;
+        background-color: #bbddbb;
     }
+    
 }
 
 input{
     border-style: none;
     border-radius: 10px;
     background-color: #eaefea;
+    color: #113311;
     width: fill;
     padding-left: 1em;
     height: 1.5em;
-    color: #558855;
     transition: background-color .5s;
 
     &:focus{
-        font-weight: bold;
-        border-style: none;
         outline: none;
-        background-color: #fafffa;
+        box-shadow: 1px 1px 8px #d9ded9;
+        background-color: #fefffe;
     }
     
     &:hover{
-        font-weight: bold;
-        border-style: none;
         outline: none;
-        background-color: #fafffa;
+        box-shadow: 1px 1px 8px #d9ded9;
+        background-color: #fefffe;
     }
 }
+
+// @media (min-width: 1000px){
+//     body{
+//         font-size: 18px;
+//         display: grid;
+//         grid-template: 
+//             'logo   top    top'
+//             'copy   card   card'
+//             'bottom bottom bottom'
+//         ;
+//     }
+
+//     .top{
+//         grid-area: 'top';
+//     }
+//     .bottom{
+//         grid-area: 'bottom';
+//     }
+
+//     .card {
+//         width: 30em;
+//         grid-area: 'card';
+//     }
+// }

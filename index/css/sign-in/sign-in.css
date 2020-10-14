@@ -2,15 +2,18 @@
 body {
   margin: 0;
   padding: 0;
-  color: #ffffff;
+  color: #113311;
   background-color: #eaefea;
   font-family: 'Montserrat';
   font-size: 16px;
+  overflow: hidden;
 }
 
 .logo {
   margin-top: 10em;
   text-align: center;
+  -webkit-transform: rotate(-2deg);
+          transform: rotate(-2deg);
 }
 
 p {
@@ -18,7 +21,7 @@ p {
 }
 
 .card {
-  background-color: #aaccaa;
+  background-color: #fafffa;
   margin: 5em 1.5em;
   padding: 1em;
   border-radius: 10px;
@@ -33,47 +36,46 @@ p {
   border-radius: 10px;
   color: inherit;
   display: block;
-  background-color: #f0fff0;
-  color: #224422;
+  background-color: #aaccaa;
+  color: #ffffff;
   text-decoration: none;
   -webkit-transition: background-color .5s;
   transition: background-color .5s;
 }
 
 .button:hover {
-  background-color: #fafffa;
+  background-color: #bbddbb;
 }
 
 .button:focus {
-  background-color: #ffffff;
-  outline: none;
+  background-color: #bbddbb;
 }
 
 input {
   border-style: none;
   border-radius: 10px;
   background-color: #eaefea;
+  color: #113311;
   width: -webkit-fill-available;
   width: -moz-available;
   width: fill;
   padding-left: 1em;
   height: 1.5em;
-  color: #558855;
   -webkit-transition: background-color .5s;
   transition: background-color .5s;
 }
 
 input:focus {
-  font-weight: bold;
-  border-style: none;
   outline: none;
-  background-color: #fafffa;
+  -webkit-box-shadow: 1px 1px 8px #d9ded9;
+          box-shadow: 1px 1px 8px #d9ded9;
+  background-color: #fefffe;
 }
 
 input:hover {
-  font-weight: bold;
-  border-style: none;
   outline: none;
-  background-color: #fafffa;
+  -webkit-box-shadow: 1px 1px 8px #d9ded9;
+          box-shadow: 1px 1px 8px #d9ded9;
+  background-color: #fefffe;
 }
 /*# sourceMappingURL=sign-in.css.map */

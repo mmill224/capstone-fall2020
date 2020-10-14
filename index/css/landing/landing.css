@@ -7,10 +7,14 @@ body {
   font-family: 'Montserrat';
   text-align: center;
   font-size: 16px;
+  overflow: hidden;
 }
 
 .logo {
   margin-top: 10em;
+  text-align: center;
+  -webkit-transform: rotate(-2deg);
+          transform: rotate(-2deg);
 }
 
 .hero-section {
@@ -54,10 +58,10 @@ body {
 }
 
 .button-section .sign-up {
-  background-color: #e0ffe0;
+  background-color: #f5faf5;
 }
 
 .button-section .sign-up:hover {
-  background-color: #eaffea;
+  background-color: #ffffff;
 }
 /*# sourceMappingURL=landing.css.map */

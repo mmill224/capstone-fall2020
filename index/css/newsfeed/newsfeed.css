@@ -11,39 +11,91 @@ body {
 
 .navigation {
   background-color: #aaccaa;
-  height: 3em;
   display: table-row;
+  height: 3em;
 }
 
 .nav-button {
   display: table-cell;
   text-decoration: none;
   color: #ffffff;
-  margin: auto;
-  text-align: center;
   padding-top: .85em;
-  width: 20vw;
+  width: 100vw;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+}
+
+.nav-button:hover {
+  background-color: #7a9a7a;
 }
 
 #newsfeed {
   height: -webkit-fill-available;
   height: -moz-available;
   height: fill;
-  width: 20vw;
   background-color: #779977;
 }
 
 #logo-box {
-  background-color: #ffffff;
-  margin: auto;
+  background-color: #779977;
 }
 
 #logo {
-  text-align: center;
-  height: 39px;
-  width: 39px;
   padding: 0;
-  margin: 0;
+  margin-top: .5em;
+}
+
+.card {
+  margin: 1.5em;
+  padding: 1em;
+  background-color: #ffffff;
+  text-align: left;
+  border-radius: 10px;
+}
+
+.profile {
+  position: relative;
+  height: 5em;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  width: fill;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin-bottom: .5em;
+}
+
+.profile-pic-container {
+  width: 60px;
+  height: 72px;
+  overflow: hidden;
+}
+
+.profile-pic {
+  width: 60px;
+  border-radius: 50px;
+  clip: rect(auto);
+}
+
+.profile-pic:hover {
+  cursor: pointer;
+}
+
+.profile-text {
   position: absolute;
+  height: 1em;
+  margin: 3em 5em;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.name:hover {
+  cursor: pointer;
+}
+
+.date {
+  margin-left: 12em;
 }
 /*# sourceMappingURL=newsfeed.css.map */
