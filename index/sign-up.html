@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up for Focal Point</title>
-    <link rel="stylesheet" href="css/sign-up/sign-up.css">
+    <link rel="stylesheet" href="css/sign-in/sign-in.css">
+    <link rel="stylesheet" href="css/common/scrollbar.css">
+
 </head>
 <body>
     <div class="logo">
@@ -12,11 +14,11 @@
     </div>
     <div class="card">
         <p>email</p>
-        <input type="text" name="email" id="email" placeholder="place@holder.com"></input>
+        <input type="email" name="email" id="email" placeholder=""></input>
         <p>password</p>
-        <input type="text" name="email" id="email" placeholder="*********"></input>
+        <input type="password" name="pass1" id="pass1" placeholder=""></input>
         <p>confirm password</p>
-        <input type="text" name="email" id="email" placeholder="*********"></input>
+        <input type="password" name="pass2" id="pass2" placeholder=""></input>
         <a href="sign-in.html" class="button">Sign up</a>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
@@ -30,7 +32,7 @@
            .from("p", {delay: 0, x: -20}, "-=.1")
            .from(".button", {delay: 0, x: -20})
 
-        tl1.to(".logo", {y: 4, repeat: -1, yoyo:true, transformOrigin: 'center'})
+        tl1.to(".logo", {repeat: -1, yoyo:true, rotation:2, transformOrigin: 'center'})
     </script>
 </body>
 </html>
