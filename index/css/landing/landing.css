@@ -28,7 +28,7 @@ body {
 }
 
 .button-section {
-  margin-top: 1em;
+  margin: 1em;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -41,7 +41,6 @@ body {
   margin: auto;
   margin-top: .8em;
   border-radius: 10px;
-  color: inherit;
   text-decoration: none;
   display: block;
   -webkit-transition: background-color .5s;
@@ -63,5 +62,38 @@ body {
 
 .button-section .sign-up:hover {
   background-color: #ffffff;
+}
+
+@media (min-width: 1600px) {
+  .grid-container {
+    margin: 8em;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+  }
+  .showcase {
+    background-color: #000000;
+    height: 150px;
+    width: 150px;
+    display: inline-block;
+    margin: .2em;
+  }
+  .showcase-container {
+    background-color: #ffffff;
+    display: contents;
+  }
+  .logo {
+    text-align: left;
+  }
+  .left {
+    text-align: left;
+  }
+  .button-section {
+    padding-top: 6em;
+  }
+  .right {
+    margin-top: 10em;
+  }
 }
 /*# sourceMappingURL=landing.css.map */

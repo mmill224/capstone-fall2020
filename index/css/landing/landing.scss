@@ -27,7 +27,7 @@ body{
 }
 
 .button-section{
-    margin-top: 1em;
+    margin: 1em;
     justify-content: center;
     font-size: 24px;
         .button{
@@ -36,7 +36,6 @@ body{
             margin: auto;
             margin-top: .8em;
             border-radius: 10px;
-            color: inherit;
             text-decoration: none;
             display: block;
             transition: background-color .5s;
@@ -55,3 +54,38 @@ body{
             }
         }
 }
+
+
+@media (min-width: 1600px){
+    .grid-container{
+        margin: 8em;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .showcase{
+        background-color: #000000;
+        height: 150px;
+        width: 150px;
+        display: inline-block;
+        margin: .2em;
+    }
+    .showcase-container{
+        background-color: #ffffff;
+        display: contents;
+    }
+
+    .logo{
+        text-align: left;
+    }
+
+    .left{
+        text-align: left;
+    }
+    
+    .button-section{
+        padding-top: 6em;
+    }
+    .right{
+        margin-top: 10em;
+    }
+ }
