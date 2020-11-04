@@ -27,9 +27,3 @@ def passwordChecker(password):
 
     else:
         return True
-if __name__ == '__main__':
-    password = input("Enter your password.")
-    if passwordChecker(password) is True:
-        print("That is a strong password. ")
-    else:
-        print("That is a weak password.")
