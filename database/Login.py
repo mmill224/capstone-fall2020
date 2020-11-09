@@ -1,7 +1,13 @@
 import mysql.connector
 import re
 #import mysql
-# import validate_email
+#import validate_email
+logindb = mysql.connector.connect(
+    host = "localhost",
+    user = "root",
+    password = "1234",
+    database = "testdb",
+)
 
 def passwordChecker(password):
     #check the password length
@@ -34,6 +40,7 @@ def passwordChecker(password):
 
 def signUp():
     while True:
+        username = input("Please enter a username: ")
         email = input("Please enter your email: ")
         password = input("Please enter your password: ")
         password2 = input("Please enter your password: ")
@@ -48,12 +55,11 @@ def signUp():
         else:
             print("Weak password try again")
             signUp()
-
-        with mysql.connect("Login.db") as db:
-            cursor = db.cursor()
-        find_user = "SELECT * FROM users Where email = ? and password = ? "
-        cursor.execute(find_user,[(email),(password)])
-        results = cursor.fetchall()
+        user_id = 1
+        my_cursor = logindb.cursor()
+        find_user = "SELECT * FROM users Where username = ?,email = ? and password = ?"
+        my_cursor.execute(find_user,[(username),(email),(password)])
+        results = my_cursor.fetchall()
 
         if results:
             for i in results:
@@ -62,18 +68,20 @@ def signUp():
 
         else:
             print("You have registered sucsessfully")
-            #need to add user here
+            sqlStuff = "INSERT INTO users (username,email,password) VALUES (%s,%s,%s)"
+            record = (username, email, password)
             again = input("Do you want to try again?(y/n): ")
             return("exit")
 
 def returningUser():
+    username = input("Please enter a username: ")
     email = input("Please enter your email: ")
     password = input("Please enter your password: ")
-    with mysql.connect("Login.db") as db:
-        cursor = db.cursor()
+    #with mysql.connect("users.db") as db:
+    my_cursor = logindb.cursor()
     find_user = "SELECT * FROM users Where email = ? and password = ? "
-    cursor.execute(find_user, [(email), (password)])
-    results = cursor.fetchall()
+    my_cursor.execute(find_user, [(username),(email),(password)])
+    results = my_cursor.fetchall()
 
     if results:
         for i in results:
@@ -84,15 +92,16 @@ def returningUser():
         print("Email and or password not recognized")
         again = input("Do you want to try again?(y/n): ")
         if again.lower() == "y":
-            retuningUser()
+            returningUser()
         elif again.lower() == "n":
             print("Goodbye")
             return ("exit")
 
 if __name__ == '__main__':
-    userType = input("Are you a new or returing user? n/r")
+    userType = input("Are you a new or returning user? n/r")
     i = 1
-    while i < 4:
+    attempts = 4
+    while i < attempts:
         if userType == "n":
             signUp()
         elif userType == "r":
@@ -100,6 +109,8 @@ if __name__ == '__main__':
         else:
             print("Not a valid input")
 
+    logindb.commit()
+    #my_cursor.close()
 
 
 
