@@ -29,15 +29,15 @@ if __name__ == '__main__':
     email = input("Enter a email.")
     password = input("Enter a password.")
 
-    #sqlStuff = "INSERT INTO users (userName,email,password) VALUES (%s,%s,%s)"
-    #record = (username, email, password)
-    #my_cursor.execute(sqlStuff, record)
-
-    my_cursor = logindb.cursor()
-    find_user = "SELECT * FROM users Where username = ? and email = ? and password = ?"
+    sqlStuff = "INSERT INTO users (userName,email,password) VALUES (%s,%s,%s)"
     record = (username, email, password)
-    my_cursor.execute(find_user, record)
-    results = my_cursor.fetchall()
+    my_cursor.execute(sqlStuff, record)
+
+    #my_cursor = logindb.cursor()
+    #find_user = "SELECT * FROM users Where username = ? and email = ? and password = ?"
+    #record = (username, email, password)
+    #my_cursor.execute(find_user, record)
+    #results = my_cursor.fetchall()
 
     logindb.commit()
     my_cursor.close()

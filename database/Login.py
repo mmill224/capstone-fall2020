@@ -37,6 +37,37 @@ def passwordChecker(password):
     else:
         return True
 
+#checks cedentials and returns true if one is already in use
+def cedentialCheck(username, email, password):
+    my_cursor = logindb.cursor()
+    my_cursor.execute("SELECT * FROM users")
+    results = my_cursor.fetchall()
+    #loop through all the records
+    for row in results:
+        if username == row[0]:
+            return True
+        elif email == row[1]:
+            return True
+        elif password == row[2]:
+            return True
+        else:
+            return False
+
+def existingUser(username, email, password):
+    my_cursor = logindb.cursor()
+    my_cursor.execute("SELECT * FROM users")
+    results = my_cursor.fetchall()
+    #loop through all the records
+    for row in results:
+        if username == row[0] and email == row[1] and password == row[2]:
+            return True
+        else:
+            return False
+
+def addUser(username, email, password):
+    sqlStuff = "INSERT INTO users (userName,email,password) VALUES (%s,%s,%s)"
+    record = (username, email, password)
+    my_cursor.execute(sqlStuff, record)
 
 def signUp():
     while True:
@@ -55,59 +86,46 @@ def signUp():
         else:
             print("Weak password try again")
             signUp()
-        user_id = 1
-        my_cursor = logindb.cursor()
-        find_user = "SELECT * FROM users Where username = ?,email = ? and password = ?"
-        my_cursor.execute(find_user,[(username),(email),(password)])
-        results = my_cursor.fetchall()
 
-        if results:
-            for i in results:
-                print("Your email or password is alredy taken or registered")
-                signUp()
-
+        if cedentialCheck(username, email, password) == True:
+            print("At least one of the credentials is in use. Try again")
+            signUp()
         else:
-            print("You have registered sucsessfully")
-            sqlStuff = "INSERT INTO users (username,email,password) VALUES (%s,%s,%s)"
-            record = (username, email, password)
-            again = input("Do you want to try again?(y/n): ")
-            return("exit")
+            print("The credentials are not in use. Congradulations you have sighned up!")
+            addUser(username, email, password)
+
 
 def returningUser():
     username = input("Please enter a username: ")
     email = input("Please enter your email: ")
     password = input("Please enter your password: ")
-    #with mysql.connect("users.db") as db:
-    my_cursor = logindb.cursor()
-    find_user = "SELECT * FROM users Where email = ? and password = ? "
-    my_cursor.execute(find_user, [(username),(email),(password)])
-    results = my_cursor.fetchall()
 
-    if results:
-        for i in results:
-            print("Welcome " + i[1])
+    if existingUser(username, email, password) == True:
+        print("Welcome " + username)
         return ("exit")
-
     else:
         print("Email and or password not recognized")
         again = input("Do you want to try again?(y/n): ")
-        if again.lower() == "y":
+        if again == "y":
             returningUser()
-        elif again.lower() == "n":
+        elif again == "n":
             print("Goodbye")
             return ("exit")
 
 if __name__ == '__main__':
     userType = input("Are you a new or returning user? n/r")
     i = 1
-    attempts = 4
+    attempts = 2
     while i < attempts:
         if userType == "n":
             signUp()
-        elif userType == "r":
+            i = i + 1
+        if userType == "r":
             returningUser()
+            i = i + 1
         else:
             print("Not a valid input")
+            i = i + 1
 
     logindb.commit()
     #my_cursor.close()
