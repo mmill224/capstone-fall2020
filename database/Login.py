@@ -1,5 +1,6 @@
 import mysql.connector
 import re
+from validate_email import validate_email
 #import mysql
 #import validate_email
 logindb = mysql.connector.connect(
@@ -65,6 +66,7 @@ def existingUser(username, email, password):
             return False
 
 def addUser(username, email, password):
+    my_cursor = logindb.cursor()
     sqlStuff = "INSERT INTO users (userName,email,password) VALUES (%s,%s,%s)"
     record = (username, email, password)
     my_cursor.execute(sqlStuff, record)
@@ -75,6 +77,16 @@ def signUp():
         email = input("Please enter your email: ")
         password = input("Please enter your password: ")
         password2 = input("Please enter your password: ")
+        is_valid = validate_email(email_address='example@example.com', \
+                                  check_regex=True, check_mx=False, \
+                                  from_address='my@from.addr.ess', helo_host='my.host.name', \
+                                  smtp_timeout=10, dns_timeout=10, use_blacklist=True)
+        if is_valid == True:
+            print("Your email is valid")
+        else:
+            print("Your email is valid")
+            signUp()
+
         if password == password2:
             print("Passwords match")
         else:
@@ -91,7 +103,7 @@ def signUp():
             print("At least one of the credentials is in use. Try again")
             signUp()
         else:
-            print("The credentials are not in use. Congradulations you have sighned up!")
+            print("The credentials are not in use. Congradulations you have signed up!")
             addUser(username, email, password)
 
 
@@ -129,6 +141,3 @@ if __name__ == '__main__':
 
     logindb.commit()
     #my_cursor.close()
-
-
-
