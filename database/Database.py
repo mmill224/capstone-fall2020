@@ -19,7 +19,7 @@ my_cursor = logindb.cursor()
 
 my_cursor = logindb.cursor()
 #creates table
-#my_cursor.execute("CREATE TABLE users (userName VARCHAR(50), email VARCHAR(50), password VARCHAR(50), user_id INTEGER AUTO_INCREMENT PRIMARY KEY)")
+#
 
 
 
