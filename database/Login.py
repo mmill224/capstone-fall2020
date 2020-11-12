@@ -1,3 +1,4 @@
+import os
 import mysql.connector
 import re
 from validate_email import validate_email
@@ -79,9 +80,8 @@ def signUp():
         email = input("Please enter your email: ")
         password = input("Please enter your password: ")
         password2 = input("Please enter your password: ")
-        is_valid = validate_email(email_address='example@example.com', \
-                                  check_regex=True, check_mx=False, \
-                                  from_address='my@from.addr.ess', helo_host='my.host.name', \
+        is_valid = validate_email(email_address=email,
+                                  check_regex=True, check_mx=False,
                                   smtp_timeout=10, dns_timeout=10, use_blacklist=True)
         if is_valid == True:
             print("Your email is valid")
@@ -109,13 +109,50 @@ def signUp():
             addUser(username,firstname, middlename, lastname, email, password)
 
 
+def updateBio(username):
+    my_cursor = fpdatabase.cursor()
+    bio = input("Enter an update to your bio")
+    update = "UPDATE user SET bio = %s WHERE userID = %s"
+    record = (bio, username)
+    my_cursor.execute(update, record)
+    fpdatabase.commit()
+
+'''
+def insertFile(username, filepath):
+    my_cursor = fpdatabase.cursor()
+    with open(filepath, "rb") as file:
+        binary = file.read()
+    update = "UPDATE user SET profilePicture = %s WHERE userID = %s"
+    record = (username, filepath)
+    my_cursor.execute(update, record)
+    fpdatabase.commit()
+
+def setProfilePic(username):
+    my_cursor = fpdatabase.cursor()
+    option = input("Insert image/ Read image i/r")
+    if option == "i":
+        filepath = input("Enter file path:")
+        insertFile(username, filepath)
+    elif option == "r":
+        idchoice = input("Enter ID:")
+        # insert image
+    fpdatabase.commit()
+'''
 def returningUser():
     username = input("Please enter a username: ")
     email = input("Please enter your email: ")
     password = input("Please enter your password: ")
 
     if existingUser(username, email, password) == True:
-        print("Welcome " + username)
+        print("Welcome " + username + "What would you like to do?")
+        option = input("1)set profile pick, 2) create bio:")
+
+        #if option == "1":
+            #setProfilePic(username)
+        if option == "2":
+            updateBio(username)
+        else:
+            print("Wrong Input:")
         return ("exit")
     else:
         print("Email and or password not recognized")
@@ -126,7 +163,9 @@ def returningUser():
             print("Goodbye")
             return ("exit")
 
+
 if __name__ == '__main__':
+
     userType = input("Are you a new or returning user? n/r")
     i = 1
     attempts = 2
