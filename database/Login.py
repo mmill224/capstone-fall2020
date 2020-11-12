@@ -1,13 +1,12 @@
 import mysql.connector
 import re
 from validate_email import validate_email
-#import mysql
-#import validate_email
-logindb = mysql.connector.connect(
+
+fpdatabase = mysql.connector.connect(
     host = "localhost",
     user = "root",
     password = "1234",
-    database = "testdb",
+    database = "fpdatabase",
 )
 
 def passwordChecker(password):
@@ -34,46 +33,49 @@ def passwordChecker(password):
     spCheck = re.compile(r'\W')
     if not(spCheck.search(password)):
         return False
-
     else:
         return True
 
 #checks cedentials and returns true if one is already in use
-def cedentialCheck(username, email, password):
-    my_cursor = logindb.cursor()
-    my_cursor.execute("SELECT * FROM users")
+def cedentialCheck(username, email):
+    my_cursor = fpdatabase.cursor()
+    my_cursor.execute("SELECT * FROM user")
     results = my_cursor.fetchall()
     #loop through all the records
     for row in results:
         if username == row[0]:
             return True
-        elif email == row[1]:
-            return True
-        elif password == row[2]:
+        elif email == row[4]:
             return True
         else:
             return False
 
 def existingUser(username, email, password):
-    my_cursor = logindb.cursor()
-    my_cursor.execute("SELECT * FROM users")
+    my_cursor = fpdatabase.cursor()
+    my_cursor.execute("SELECT * FROM user")
     results = my_cursor.fetchall()
     #loop through all the records
     for row in results:
-        if username == row[0] and email == row[1] and password == row[2]:
+        if username == row[0] and email == row[4]:
             return True
         else:
             return False
 
-def addUser(username, email, password):
-    my_cursor = logindb.cursor()
-    sqlStuff = "INSERT INTO users (userName,email,password) VALUES (%s,%s,%s)"
-    record = (username, email, password)
+def addUser(username,firstname, middlename, lastname, email, password):
+    admin = 0
+    my_cursor = fpdatabase.cursor()
+    sqlStuff = "INSERT INTO user (userID,firstName, middleName, lastName, email, password, admin) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+    record = (username,firstname, middlename, lastname, email, password, admin)
     my_cursor.execute(sqlStuff, record)
+    fpdatabase.commit()
+    my_cursor.close()
 
 def signUp():
     while True:
         username = input("Please enter a username: ")
+        firstname = input("Please enter your first name: ")
+        middlename = input("Please enter your middle name: ")
+        lastname = input("Please enter your last name: ")
         email = input("Please enter your email: ")
         password = input("Please enter your password: ")
         password2 = input("Please enter your password: ")
@@ -99,12 +101,12 @@ def signUp():
             print("Weak password try again")
             signUp()
 
-        if cedentialCheck(username, email, password) == True:
+        if cedentialCheck(username, email) == True:
             print("At least one of the credentials is in use. Try again")
             signUp()
         else:
             print("The credentials are not in use. Congradulations you have signed up!")
-            addUser(username, email, password)
+            addUser(username,firstname, middlename, lastname, email, password)
 
 
 def returningUser():
@@ -139,5 +141,5 @@ if __name__ == '__main__':
             print("Not a valid input")
             i = i + 1
 
-    logindb.commit()
+    fpdatabase.commit()
     #my_cursor.close()
