@@ -51,13 +51,13 @@ def cedentialCheck(username, email):
         else:
             return False
 
-def existingUser(username, email, password):
+def existingUser(username, password):
     my_cursor = fpdatabase.cursor()
     my_cursor.execute("SELECT * FROM user")
     results = my_cursor.fetchall()
     #loop through all the records
     for row in results:
-        if username == row[0] and email == row[4]:
+        if username == row[0] and password == row[5]:
             return True
         else:
             return False
@@ -108,7 +108,7 @@ def signUp():
             print("The credentials are not in use. Congradulations you have signed up!")
             addUser(username,firstname, middlename, lastname, email, password)
 
-
+#Allows user to change thier bio in the user database
 def updateBio(username):
     my_cursor = fpdatabase.cursor()
     bio = input("Enter an update to your bio")
@@ -138,17 +138,31 @@ def setProfilePic(username):
         # insert image
     fpdatabase.commit()
 '''
+#creates a post into the post database
+def createPost(username):
+    #date must be in YYYY - MM - DD
+    postID = input("Please enter a post name: ")
+    image = input("Please enter a image: ")
+    description = input("Please enter a description: ")
+    date = input("Please enter a date: ")
+    my_cursor = fpdatabase.cursor()
+    post = "INSERT INTO post (postID,image,description, date, postUser) VALUES (%s,%s,%s,%s,%s)"
+    record = (postID, image, description, date, username)
+    my_cursor.execute(post, record)
+    fpdatabase.commit()
+    my_cursor.close()
+
 def returningUser():
     username = input("Please enter a username: ")
-    email = input("Please enter your email: ")
     password = input("Please enter your password: ")
 
-    if existingUser(username, email, password) == True:
+    if existingUser(username, password) == True:
         print("Welcome " + username + "What would you like to do?")
-        option = input("1)set profile pick, 2) create bio:")
+        option = input("1)create post, 2) create bio:")
 
-        #if option == "1":
+        if option == "1":
             #setProfilePic(username)
+            createPost(username)
         if option == "2":
             updateBio(username)
         else:
