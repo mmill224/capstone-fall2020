@@ -4,7 +4,7 @@
 $dbServername = "localhost";
 $dbUsername = "root";
 $dbPassword = "";
-$dbName = "airline";
+$dbName = "focalPoint";
 
 $conn = new mysqli(/*$dbPort*/ $dbServername, $dbUsername, $dbPassword, $dbName);
 if ($conn->connect_error) {

@@ -323,6 +323,7 @@ def deleteUser(admin):
         print ("You do not have admin access to delete users.")
         return ("exit")
 
+
 def deletePost(admin):
     my_cursor = fpdatabase.cursor()
     if admin == 1:
@@ -331,8 +332,6 @@ def deletePost(admin):
         my_cursor.execute(sql, post)
         fpdatabase.commit()
         print(my_cursor.rowcount, "User deleted")
-
-
 
 if __name__ == '__main__':
 
