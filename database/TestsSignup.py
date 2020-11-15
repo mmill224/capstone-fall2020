@@ -10,3 +10,4 @@ def testSignup():
     password2 = input("Dogsl3d14@")
     record = (username, firstname, middlename, lastname, email, password, password2)
     addUser(record)
+    #123
