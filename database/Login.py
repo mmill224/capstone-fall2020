@@ -285,6 +285,10 @@ def returningUser():
             updateBio(username)
         elif option == "3":
             createEvent(username)
+        elif option == "4":
+            deleteUser(adminCheck(username))
+        elif option == "5":
+            deletePost(adminCheck(username))
         elif option == "6":
             viewPosts()
         elif option == "7":
@@ -319,6 +323,15 @@ def deleteUser(admin):
         print ("You do not have admin access to delete users.")
         return ("exit")
 
+
+def deletePost(admin):
+    my_cursor = fpdatabase.cursor()
+    if admin == 1:
+        sql = "DELETE FROM post WHERE postID = %s"
+        post = (input("Enter postId you wish to delete: "),)
+        my_cursor.execute(sql, post)
+        fpdatabase.commit()
+        print(my_cursor.rowcount, "User deleted")
 
 if __name__ == '__main__':
 
