@@ -156,50 +156,43 @@ def viewUser():
             date = row[3]
             user = row[4]
             print(postID, " ", image, " ", description, " ", date, " ", user)
-
+'''
 def adminTools():
     #need to add in these so only admins have the promts and privleges to use these tools
     deletePost()
     deleteUser()
-
+'''
 
 def signIn(username,password):
-
-    if existingUser(username, password) == True:
-        print("Welcome! " + username + " What would you like to do?")
-        if adminCheck(username) == True:
-            option = input("1)Create post, 2) Create bio, You are a admin 3) Create event, 4) Delete user, 5) Delete post")
-        else:
-            option = input("1)Create post, 2) Create bio 6) View posts 7) View events 8)view my posts 9)View other user:")
-        if option == "1":
-            #setProfilePic(username)
-            createPost(username)
-        elif option == "2":
-            updateBio(username)
-        elif option == "3":
-            createEvent(username)
-        elif option == "4":
-            deleteUser(adminCheck(username))
-        elif option == "5":
-            deletePost(adminCheck(username))
-        elif option == "6":
-            viewPosts()
-        elif option == "7":
-            viewEvents()
-        elif option == "8":
-            viewMyPosts(username)
-        elif option == "9":
-            viewUser()
-        else:
-            print("Wrong Input:")
-        return ("exit")
-    else:
-        print("username and or password not recognized")
-        again = input("Do you want to try again?(y/n): ")
-        if again == "y":
-            signIn()
-        elif again == "n":
-            print("Goodbye")
+    signedIn =False
+    while signedIn == False:
+        if existingUser(username, password) == True:
+            print("Welcome! " + username + " What would you like to do?")
+            if adminCheck(username) == True:
+                option = input("1)Create post, 2) Create bio, You are a admin 3) Create event, 4) Delete user, 5) Delete post")
+            else:
+                option = input("1)Create post, 2) Create bio 6) View posts 7) View events 8)view my posts 9)View other user:")
+            if option == "1":
+                #setProfilePic(username)
+                createPost(username)
+            elif option == "2":
+                updateBio(username)
+            elif option == "3":
+                createEvent(username)
+            elif option == "4":
+                deleteUser(adminCheck(username))
+            elif option == "5":
+                deletePost(adminCheck(username))
+            elif option == "6":
+                viewPosts()
+            elif option == "7":
+                viewEvents()
+            elif option == "8":
+                viewMyPosts(username)
+            elif option == "9":
+                viewUser()
+            else:
+                print("Wrong Input:")
             return ("exit")
 
 def deleteUser(admin):

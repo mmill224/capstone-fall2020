@@ -66,6 +66,7 @@ def signUp(username, firstname, middlename, lastname, email, password, password2
         is_valid = validate_email(email_address=email,
                                   check_regex=True, check_mx=False,
                                   smtp_timeout=10, dns_timeout=10, use_blacklist=True)
+        '''
         if is_valid == True:
             print("Your email is valid")
         else:
@@ -83,7 +84,7 @@ def signUp(username, firstname, middlename, lastname, email, password, password2
         else:
             print("Weak password try again")
             signUp()
-
+        '''
         if cedentialCheck(username, email) == True:
             print("At least one of the credentials is in use. Try again")
             signUp()
