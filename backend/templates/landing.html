@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Focal Point</title>
-    <link rel="stylesheet" href="css/landing/landing.css">
-    <link rel="stylesheet" href="css/common/scrollbar.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing/landing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common/scrollbar.css') }}">
 </head>
 <body>
     <div class="grid-container">
         <div class="left">
             <div class="logo">
-                <img src="assets/images/placeholder-logo.svg" alt="">
+                <img src="{{ url_for('static', filename='assets/images/placeholder-logo.svg') }}" alt="">
             </div>
             <div class="hero-section">
                 <h1>Welcome to the Kent State Photography Club</h1>
@@ -28,8 +28,8 @@
                 <div class="showcase"></div>
             </div>
             <div class="button-section">
-                <a href="sign-in.html" class="sign-in button">Sign in</a>
-                <a href="sign-up.html" class="sign-up button">Sign up</a>
+                <a href="/sign-in" class="sign-in button">Sign in</a>
+                <a href="/sign-up" class="sign-up button">Sign up</a>
             </div>
         </div>
     </div>
