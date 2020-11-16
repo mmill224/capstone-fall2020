@@ -5,7 +5,7 @@ from validate_email import validate_email
 fpdatabase = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    password = "1234",
+    password = "coffeecup90",
     database = "fpdatabase",
 )
 
@@ -62,21 +62,23 @@ def addUser(username,firstname, middlename, lastname, email, password):
     my_cursor.close()
 
 def signUp(username, firstname, middlename, lastname, email, password, password2):
-    while True:
-        is_valid = validate_email(email_address=email,
-                                  check_regex=True, check_mx=False,
-                                  smtp_timeout=10, dns_timeout=10, use_blacklist=True)
+        # is_valid = validate_email(email_address=email,
+        #                           check_regex=True, check_mx=False,
+        #                           smtp_timeout=10, dns_timeout=10, use_blacklist=True)
         '''
         if is_valid == True:
             print("Your email is valid")
         else:
             print("Your email is valid")
             signUp()
+
+        '''
         if password == password2:
             print("Passwords match")
         else:
             print("Passwords don't match try again")
-            signUp()
+            return false
+        '''
         if passwordChecker(password) == True:
             print("Strong password")
         else:
@@ -87,5 +89,10 @@ def signUp(username, firstname, middlename, lastname, email, password, password2
             print("At least one of the credentials is in use. Try again")
             signUp()
         else:
-            print("The credentials are not in use. Congradulations you have signed up!")
+            print("The credentials are not in use. Congratulations! You have signed up!")
             addUser(username,firstname, middlename, lastname, email, password)
+        userAddedSuccesfully = someQuery() #checks the database if the user is there
+        return userAddedSuccesfully
+
+def someQuery():
+    #checks whether the user was added successfully

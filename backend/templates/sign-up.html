@@ -13,13 +13,19 @@
         <img src="{{ url_for('static', filename='assets/images/placeholder-logo.svg') }}" alt="">
     </div>
     <div class="card">
-        <p>email</p>
-        <input type="email" name="email" id="email" placeholder=""></input>
-        <p>password</p>
-        <input type="password" name="pass1" id="pass1" placeholder=""></input>
-        <p>confirm password</p>
-        <input type="password" name="pass2" id="pass2" placeholder=""></input>
-        <a href="/sign-in" class="button">Sign up</a>
+        <form action="#" method="POST">    
+            <p>username</p>
+            <input type="text" name="username" id="username" placeholder=""></input>
+            <p>first name</p>
+            <input type="text" name="firstname" id="firstname" placeholder=""></input>
+            <p>last name</p>
+            <input type="text" name="lastname" id="lastname" placeholder=""></input>
+            <p>password</p>
+            <input type="password" name="pass1" id="pass1" placeholder=""></input>
+            <p>confirm password</p>
+            <input type="password" name="pass2" id="pass2" placeholder=""></input>
+            <a href="/sign-in" class="button">Sign up</a>
+        </form>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
     <script>
