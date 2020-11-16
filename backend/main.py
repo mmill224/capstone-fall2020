@@ -13,14 +13,14 @@ def landingPage():
     else:
         return render_template("newsfeed.html")
 
-@app.route('/sign-up')
+@app.route('/sign-up', methods = ["POST", "GET"])
 def signUpPage():
     if user == None:
         return render_template("sign-up.html")
     else: 
         return render_template("newsfeed.html")
 
-@app.route('/sign-in')
+@app.route('/sign-in', methods = ["POST", "GET"])
 def signInPage():
     if user == None:
         #user = # get the user's userID
@@ -49,6 +49,14 @@ def createPostPage():
         return render_template("create-post.html")
     else: 
         return render_template("landing.html")
+
+
+@app.route('/{user}')
+def viewProfilePage(user):
+    mydict = viewUser(user)
+    if mydict != None:
+        mydict["user"][0]
+
 
 if __name__ == "__main__":
     app.run(debug=True)
