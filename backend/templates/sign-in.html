@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign in to Focal Point</title>
-    <link rel="stylesheet" href="css/sign-in/sign-in.css">    
-    <link rel="stylesheet" href="css/common/scrollbar.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-in/sign-in.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common/scrollbar.css') }}">
 </head>
 <body>
     <div class="top"></div>
     <div class="logo">
-        <img src="assets/images/placeholder-logo.svg" alt="">
+        <img src="{{ url_for('static', filename='assets/images/placeholder-logo.svg') }}" alt="">
     </div>
     <div class="card">
         <p>email</p>
         <input type="email" name="email" id="email" placeholder=""></input>
         <p>password</p>
         <input type="password" name="pass" id="pass" placeholder=""></input>
-        <a href="newsfeed.html" class="button">Sign in</a>
+        <a href="/newsfeed" class="button">Sign in</a>
     </div>
     <div class="bottom"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>

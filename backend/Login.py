@@ -3,7 +3,7 @@ import mysql.connector
 fpdatabase = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    password = "1234",
+    password = "coffeecup90",
     database = "fpdatabase",
 )
 
@@ -71,16 +71,18 @@ def adminCheck(username):
 
 def viewPosts():
     my_cursor = fpdatabase.cursor()
-    my_cursor.execute("SELECT * FROM post")
+    my_cursor.execute("SELECT * FROM post order by date desc")
     results = my_cursor.fetchall()
     # loop through all the records
-    for row in results:
-        postID = row[0]
-        image = row[1]
-        description = row[2]
-        date = row[3]
-        user = row[4]
-        print(postID, " " ,  image, " ", description," ", date, " ", user)
+    # for row in results:
+    #     postID = row[0]
+    #     image = row[1]
+    #     description = row[2]
+    #     date = row[3]
+    #     user = row[4]
+    #     print(postID, " " ,  image, " ", description," ", date, " ", user)
+    return results
+
 
 def viewEvents():
     my_cursor = fpdatabase.cursor()

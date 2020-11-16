@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Focal Point</title>
-    <link rel="stylesheet" href="css/newsfeed/newsfeed.css">
-    <link rel="stylesheet" href="css/common/scrollbar.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/newsfeed/newsfeed.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common/scrollbar.css') }}">
 </head>
 <body>
     <div class="navigation">
@@ -14,31 +14,21 @@
         <a href="" class="nav-button" id="new-post">new post</a>
         <a href="" class="nav-button" id="events">events</a>
     </div>
-    <div class="card">
-        <div class="report-button"></div>
-        <div class="profile">
-            <div class="profile-pic-container"><img class="profile-pic" src="assets/images/john-doe-profile-pic.jpg" alt=""></div>
-            <div class="name profile-text">John Doe</div> 
-            <div class="date profile-text">10/7/20</div>
-        </div>
-        <div class="content">
-            <div class="content-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo molestiae nihil necessitatibus voluptates. Harum explicabo velit autem tempore assumenda recusandae quod alias fugit, unde, facilis sunt est architecto nihil cum.</div>
-            <img class="content-picture">
-        </div>
-    </div>    
-    <div class="card">
-        <div class="report-button"></div>
-        <div class="profile">
-            <div class="profile-pic-container"><img class="profile-pic" src="assets/images/jane-doe-profile-pic.jpg" alt=""></div>
-            <div class="name profile-text">Jane Doe</div> 
-            <div class="date profile-text">9/27/20</div>
-        </div>
-        <div class="content">
-            <div class="content-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tempore assumenda recusandae quod alias fugit, unde, facilis sunt est architecto nihil cum.</div>
-            <img class="content-picture">
-        </div>
-    </div>
-    <div class="card">
+    {% for post in posts %}
+        <div class="card">
+            <div class="report-button"></div>
+            <div class="profile">
+                <div class="profile-pic-container"><img class="profile-pic" src="assets/images/john-doe-profile-pic.jpg" alt=""></div>
+                <div class="name profile-text">{{post[4]}}</div> 
+                <div class="date profile-text">{{post[3]}}</div>
+            </div>
+            <div class="content">
+                <div class="content-text">{{post[2]}}</div>
+                <img class="content-picture">
+            </div>
+        </div>    
+    {% endfor %}
+    <!-- <div class="card">
         <div class="report-button"></div>
         <div class="profile">
             <div class="profile-pic-container"><img class="profile-pic" src="assets/images/jane-doe-profile-pic.jpg" alt=""></div>
@@ -86,5 +76,17 @@
             <img class="content-picture">
         </div>
     </div>
+    <div class="card">
+        <div class="report-button"></div>
+        <div class="profile">
+            <div class="profile-pic-container"><img class="profile-pic" src="assets/images/jane-doe-profile-pic.jpg" alt=""></div>
+            <div class="name profile-text">Jane Doe</div> 
+            <div class="date profile-text">9/27/20</div>
+        </div>
+        <div class="content">
+            <div class="content-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tempore assumenda recusandae quod alias fugit, unde, facilis sunt est architecto nihil cum.</div>
+            <img class="content-picture">
+        </div>
+    </div> -->
 </body>
 </html>
