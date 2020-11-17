@@ -3,7 +3,7 @@ import mysql.connector
 fpdatabase = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    password = "1234",
+    password = "coffeecup90",
     database = "fpdatabase",
 )
 
@@ -57,6 +57,7 @@ def createPost(username):
     my_cursor.execute(post, record)
     fpdatabase.commit()
     my_cursor.close()
+    #return true if successful
 
 def createEvent(username):
     #date must be in YYYY - MM - DD
@@ -71,6 +72,7 @@ def createEvent(username):
     my_cursor.execute(post, record)
     fpdatabase.commit()
     my_cursor.close()
+    #return true if successful
 
 #function that returns true if the user is a admin false if they are not a admin
 def adminCheck(username):
@@ -85,10 +87,19 @@ def adminCheck(username):
         else:
             return False
 
-def viewPosts():
+
+# something to consider is that this is almost exactly the same as the viewMyPosts or viewProfile function
+# you could have all of these functions be written as one
+# 
+def viewPosts(username = ''):
     my_cursor = fpdatabase.cursor()
-    my_cursor.execute("SELECT * FROM post")
+    if username == '':
+        my_cursor.execute("SELECT * FROM post order by date desc")
+    # else
+    #     my_cursor.execute("SELECT * FROM post where post.userID = username order by date desc")
+
     results = my_cursor.fetchall()
+    
     # loop through all the records
     for row in results:
         #postID = row[0]
@@ -98,6 +109,23 @@ def viewPosts():
         #user = row[4]
         #print(postID, " " ,  image, " ", description," ", date, " ", user)
         return results
+=======
+    # for row in results:
+    #     postID = row[0]
+    #     image = row[1]
+    #     description = row[2]
+    #     date = row[3]
+    #     user = row[4]
+    #     print(postID, " " ,  image, " ", description," ", date, " ", user)
+
+
+    # return a dictionary
+    # dictToReturn = {
+    #     "posts": results 
+    #     "users": a query that returns first and last name and profile picture
+    # }
+
+
 
 def viewEvents():
     my_cursor = fpdatabase.cursor()
@@ -113,11 +141,21 @@ def viewEvents():
         #eventUser = row[5]
         #print(eventID, " ", eventName, " ", description, " ", date, " ", location, " ", eventUser)
         return results
+        eventID = row[0]
+        eventName = row[1]
+        description = row[2]
+        date = row[3]
+        location = row[4]
+        eventUser = row[5]
+        print(eventID, " ", eventName, " ", description, " ", date, " ", location, " ", eventUser)    
+    return results
+
+
 
 def viewMyPosts(username):
     #first portion gets the user's info
     my_cursor = fpdatabase.cursor()
-    my_cursor.execute("SELECT * FROM user")
+    my_cursor.execute("SELECT * FROM user") #where userID = me
     results = my_cursor.fetchall()
     # loop through all the records
     for row in results:
@@ -132,7 +170,7 @@ def viewMyPosts(username):
 
     #second part gets all their posts
     my_cursor = fpdatabase.cursor()
-    my_cursor.execute("SELECT * FROM post")
+    my_cursor.execute("SELECT * FROM post") # where userid = me
     results = my_cursor.fetchall()
     # loop through all the records
     for row in results:
@@ -186,6 +224,48 @@ def viewUser():
     #if the way above does not work try assigning each value from above
     #mydict = "user": results, "posts": posts,}
     # return mydict
+
+    # should return a dictionary that contains the user record as one list and the posts table including only the posts by that username
+    # also, viewMyPosts, viewUser, and viewPosts 
+
+def viewUser(user):
+    username = input("Enter a user to view")
+    #first portion gets the user's info
+    my_cursor = fpdatabase.cursor()
+    my_cursor.execute("SELECT * FROM user") # where userID = this user
+    results = my_cursor.fetchall()
+    # loop through all the records
+    # for row in results:
+    #     if username == row[0]:
+    #         firstName = row[1]
+    #         middleName = row[2]
+    #         lastName = row[3]
+    #         email = row[4]
+    #         pic = row[6]
+    #         bio = row[7]
+    #         print(username, " ",firstName, " ", middleName, " ", lastName, " ", email, " ", pic, " ", bio)
+    # posts = some sql where we see all of the posts the user has made
+    # mydict = {
+    #     "user": results,
+    #     "posts": posts, 
+    # }
+    # return mydict
+
+    #second part gets all their posts
+    my_cursor = fpdatabase.cursor()
+    my_cursor.execute("SELECT * FROM post") # where userID = this user
+    results = my_cursor.fetchall()
+    # loop through all the records
+    for row in results:
+        if username == row[4]:
+            postID = row[0]
+            image = row[1]
+            description = row[2]
+            date = row[3]
+            user = row[4]
+            print(postID, " ", image, " ", description, " ", date, " ", user)
+
+    # this should return a dict that contains a list called user and a list called posts (all of the posts this user owns)
 '''
 def adminTools():
     #need to add in these so only admins have the promts and privleges to use these tools
