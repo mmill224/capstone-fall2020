@@ -1,4 +1,5 @@
 import mysql.connector
+import bcrypt
 
 fpdatabase = mysql.connector.connect(
     host = "localhost",
