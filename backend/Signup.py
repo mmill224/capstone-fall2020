@@ -5,11 +5,11 @@ from validate_email import validate_email
 fpdatabase = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    password = "coffeecup90",
+    password = "1234",
     database = "fpdatabase",
 )
 
-#Function that checks how stron a password is returns true if it is strong
+#checks how strong a password is returns true if it is strong
 def passwordChecker(password):
     #check the password length
     if len(password) < 8:
@@ -37,49 +37,35 @@ def passwordChecker(password):
     else:
         return True
 
-#Checks cedentials and returns true if one is already in use
-def cedentialCheck(username, email):
-    my_cursor = fpdatabase.cursor()
-    my_cursor.execute("SELECT * FROM user")
-    results = my_cursor.fetchall()
-    #loop through all the records
-    for row in results:
-        if username == row[0]:
-            return True
-        elif email == row[4]:
-            return True
-        else:
-            return False
 
-#Adds a user to the user data base
+#checks to see if the user is alredy registered in the database
+def userExists(username):
+    my_cursor = fpdatabase.cursor()
+    sql = "SELECT * FROM user WHERE userID= %s"
+    my_cursor.execute(sql, (username,))
+    results = my_cursor.fetchone()
+    if results != None:
+        return True
+    else:
+        return False
+
+#Adds a user to the user data base ant then returns true if they were added correctly
 def addUser(username,firstname, middlename, lastname, email, password):
     initalCheck = userExists(username)
     admin = 0
     my_cursor = fpdatabase.cursor()
-    sqlStuff = "INSERT INTO user (userID,firstName, middleName, lastName, email, password, admin) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-    record = (username,firstname, middlename, lastname, email, password, admin)
-    my_cursor.execute(sqlStuff, record)
+    sqlStuff = "INSERT INTO user (userID,firstName, middleName, lastName, email, password, profilePicture, bio, admin) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    my_cursor.execute(sqlStuff, (username, firstname, middlename, lastname, email, password, " ", " ", admin,))
     fpdatabase.commit()
+    my_cursor.close()
     afterCheck = userExists(username)
-
     if initalCheck == False and afterCheck == True:
         return True
     else:
         return False
     my_cursor.close()
 
-def userExists(username):
-    my_cursor = fpdatabase.cursor()
-    sql = "SELECT * FROM user WHERE userID = %s"
-    user = (username)
-    my_cursor.execute(sql, user)
-    results = my_cursor.fetchone()
-    if relsuts == None:
-        return False
-    else:
-        return True
-
-
+#checks to see if the userID is taken and adds the user if the user does not exist.
 def signUp(username, firstname, middlename, lastname, email, password, password2):
         # is_valid = validate_email(email_address=email,
         #                           check_regex=True, check_mx=False,
@@ -104,14 +90,11 @@ def signUp(username, firstname, middlename, lastname, email, password, password2
             print("Weak password try again")
             signUp()
         '''
-        if cedentialCheck(username, email) == True:
+        if userExists(username) == True:
             print("At least one of the credentials is in use. Try again")
             signUp()
         else:
             print("The credentials are not in use. Congratulations! You have signed up!")
             addUser(username,firstname, middlename, lastname, email, password)
-        userAddedSuccesfully = someQuery() #checks the database if the user is there
-        return userAddedSuccesfully
 
-def someQuery():
-    #checks whether the user was added successfully
+
