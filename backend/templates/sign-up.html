@@ -24,7 +24,7 @@
             <input type="password" name="pass1" id="pass1" placeholder=""></input>
             <p>confirm password</p>
             <input type="password" name="pass2" id="pass2" placeholder=""></input>
-            <a href="/sign-in" class="button">Sign up</a>
+            <input type="submit" value="sign in" class="button">
         </form>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
@@ -38,7 +38,7 @@
            .from("p", {delay: 0, x: -20}, "-=.1")
            .from(".button", {delay: 0, x: -20})
 
-        tl1.to(".logo", {repeat: -1, yoyo:true, rotation:2, transformOrigin: 'center'})
+        // tl1.to(".logo", {repeat: -1, yoyo:true, rotation:2, transformOrigin: 'center'})
     </script>
 </body>
 </html>

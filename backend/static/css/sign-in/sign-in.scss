@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+*{
+    overflow-x: hidden;
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -7,12 +11,17 @@ body{
     background-color: #eaefea;
     font-family: 'Montserrat';
     font-size: 16px;
+    overflow-y: hidden;
 }
 
 .logo{
-    margin-top: 10em;
+    margin: 0;
+    padding: 0;
+    width: 8em;
+    margin-top: 5em;
     text-align: center;
-    transform: rotate(-2deg);
+    overflow: hidden;
+    position: absolute;
 }
 
 p{
