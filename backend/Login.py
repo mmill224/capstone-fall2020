@@ -1,9 +1,10 @@
-import mysql.connector
+import mysql.connector 
+import bcrypt
 
 fpdatabase = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    password = "1234",
+    password = "coffeecup90",
     database = "fpdatabase",
 )
 
@@ -72,14 +73,15 @@ def adminCheck(username):
     return results
 
 #joins both the user and the posts table //done
-def viewPosts(username):
+#this almost fulfills the requirments
+def viewPosts(username=""):
     my_cursor = fpdatabase.cursor()
-    if username == "":
-        my_cursor.execute("SELECT * FROM post order by createdAt desc")
+    if username == "": # this is the case that we want all posts from all users, and in that case we just want first, last, profile pic
+        my_cursor.execute("SELECT * FROM post order by createdAt desc") # this needs to be a join "Select "
         results = my_cursor.fetchall()
         return results
-    else:
-        q = "SELECT * from post inner join user ON postUser = %s order by createdAt desc"
+    else: # this is the case where we want JUST the posts from this one user, and we want that joined with first, last, profile pic, and bio ( this is inefficient unfortunately )
+        q = "SELECT * from post inner join user ON postUser = %s order by createdAt desc" # this needs to only get the posts from username (the parameter)
         my_cursor.execute(q, (username,))
         results = my_cursor.fetchall()
         return results
@@ -109,13 +111,13 @@ def returningUser():
     else:
         print("incorrect")
 
-##Checks the user's username and password with the one in the database and returns true or false
+#Checks the user's username and password with the one in the database and returns true or false
 def passwordCheck(username,password):
     my_cursor = fpdatabase.cursor()
     sql = "SELECT password FROM user WHERE userID = %s"
     my_cursor.execute(sql, (username,))
     results = my_cursor.fetchone()
-    if (bcrypt.verify(password, results[0])) == True:
+    if (password == results[0]):
             return True
     else:
             return False
@@ -142,7 +144,7 @@ def deletePost(admin):
         fpdatabase.commit()
         print("User deleted")
 
-#Function to allow users to delete their own posts if wanted works but may need rework due to the user needing to know the id of the post //works
+#Function to allow users to delete their own posts if wanted. works but may need rework due to the user needing to know the id of the post //works
 def deleteSelfPost(postID, username):
     my_cursor = fpdatabase.cursor()
     sql = "DELETE FROM post WHERE postID = %s AND postUser = %s"
