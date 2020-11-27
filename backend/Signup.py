@@ -1,6 +1,7 @@
 import mysql.connector
 import re
 from validate_email import validate_email
+from passlib.hash import bcrypt
 
 fpdatabase = mysql.connector.connect(
     host = "localhost",
@@ -37,6 +38,10 @@ def passwordChecker(password):
     else:
         return True
 
+#Hashes and returns a password
+def passHash(password):
+    hashed_password = bcrypt.hash(password)
+    return hashed_password
 
 #checks to see if the user is alredy registered in the database
 def userExists(username):
@@ -55,7 +60,7 @@ def addUser(username,firstname, middlename, lastname, email, password):
     admin = 0
     my_cursor = fpdatabase.cursor()
     sqlStuff = "INSERT INTO user (userID,firstName, middleName, lastName, email, password, profilePicture, bio, admin) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    my_cursor.execute(sqlStuff, (username, firstname, middlename, lastname, email, password, " ", " ", admin,))
+    my_cursor.execute(sqlStuff, (username, firstname, middlename, lastname, email, passHash(password), " ", " ", admin,))
     fpdatabase.commit()
     my_cursor.close()
     afterCheck = userExists(username)
