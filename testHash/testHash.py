@@ -30,16 +30,15 @@ def existingUser():
     for row in result:
         print(row[6])
 '''
-def existingUser():
+def userExists(username):
     my_cursor = fpdatabase.cursor()
-    my_cursor.execute("SELECT * FROM user")
-    results = my_cursor.fetchall()
-    # loop through all the records
-    for row in results:
-        if username == row[0]:
-            return True
-        else:
-            return False
+    sql = "SELECT * FROM user WHERE userID= %s"
+    my_cursor.execute(sql, (username,))
+    results = my_cursor.fetchone()
+    if results != None:
+        return True
+    else:
+        return False
 
 def passwordCheck(username,password):
     my_cursor = fpdatabase.cursor()
@@ -90,7 +89,7 @@ def returningUser():
     username = input("Please enter a username: ")
     password = input("Please enter your password: ")
 
-    if existingUser(username, password) == True:
+    if userExists(username) == True:
         print("Welcome! " + username + " What would you like to do?")
 
 #Checks the user's username and password with the one in the database and returns true or false
@@ -100,9 +99,13 @@ def passwordCheck(username,password):
     my_cursor.execute(sql, (username,))
     results = my_cursor.fetchone()
     if (bcrypt.verify(password, results[0])) == True:
-            return True
+        print("login sucsess")
+        return True
     else:
-            return False
+        print("login failed")
+        return False
+
+
 
 if __name__ == '__main__':
     #signUp()
