@@ -117,10 +117,13 @@ def passwordCheck(username,password):
     sql = "SELECT password FROM user WHERE userID = %s"
     my_cursor.execute(sql, (username,))
     results = my_cursor.fetchone()
-    if (password == results[0]):
-            return True
+    if (bcrypt.verify(password, results[0])) == True:
+        print("login sucsess")
+        return True
     else:
-            return False
+        print("login failed")
+        return False
+
 
 #Function allows a admin to delete any user //done
 def deleteUser(admin):
