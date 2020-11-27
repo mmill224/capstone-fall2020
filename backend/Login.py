@@ -1,5 +1,5 @@
 import mysql.connector 
-import bcrypt
+from passlib.hash import bcrypt
 
 fpdatabase = mysql.connector.connect(
     host = "localhost",
