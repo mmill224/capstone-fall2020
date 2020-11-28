@@ -114,13 +114,20 @@ def returningUser():
 #Checks the user's username and password with the one in the database and returns true or false
 def passwordCheck(username,password):
     my_cursor = fpdatabase.cursor()
-    sql = "SELECT password FROM user WHERE userID = %s"
+    sql = "SELECT password FROM user WHERE userID = %s" 
     my_cursor.execute(sql, (username,))
     results = my_cursor.fetchone()
+    my_cursor.close()
+    if(results == None):
+        print("There is no record in the database that matches")
+        return False
+
     if (password == results[0]):
-            return True
+        print("Password matched")
+        return True
     else:
-            return False
+        print("Password did not match")
+        return False
 
 #Function allows a admin to delete any user //done
 def deleteUser(admin):
@@ -131,8 +138,7 @@ def deleteUser(admin):
         my_cursor.execute(sql, user)
         fpdatabase.commit()
         print("User deleted")
-    else:
-        return ("exit")
+        my_cursor.close()
 
 #Function That allows an admin to delete any post //done
 def deletePost(admin):
@@ -142,7 +148,8 @@ def deletePost(admin):
         post = (input("Enter postId you wish to delete: "),)
         my_cursor.execute(sql, post)
         fpdatabase.commit()
-        print("User deleted")
+        print("post deleted")
+        my_cursor.close()
 
 #Function to allow users to delete their own posts if wanted. works but may need rework due to the user needing to know the id of the post //works
 def deleteSelfPost(postID, username):
@@ -150,6 +157,7 @@ def deleteSelfPost(postID, username):
     sql = "DELETE FROM post WHERE postID = %s AND postUser = %s"
     my_cursor.execute(sql, (postID, username,))
     fpdatabase.commit()
+    my_cursor.close()
 
 #Function to get a user's first name last name and profile pic //done
 def getUserInfo(username):
@@ -157,6 +165,7 @@ def getUserInfo(username):
     sql = "SELECT firstName, lastName, profilePicture FROM user WHERE userID = %s"
     my_cursor.execute(sql, (username,))
     results = my_cursor.fetchone()
+    my_cursor.close()
     return results
 
 

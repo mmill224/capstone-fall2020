@@ -13,11 +13,13 @@
         <img src="{{ url_for('static', filename='assets/images/placeholder-logo.svg') }}" alt="">
     </div>
     <div class="card">
-        <p>email</p>
-        <input type="email" name="email" id="email" placeholder=""></input>
-        <p>password</p>
-        <input type="password" name="pass" id="pass" placeholder=""></input>
-        <a href="/newsfeed" class="button">Sign in</a>
+        <form action="#" method="POST">    
+            <p>username</p>
+            <input type="text" name="username" id="username" placeholder=""></input>
+            <p>password</p>
+            <input type="password" name="pass" id="pass" placeholder=""></input>
+            <input type="submit" value="sign un" class="button">
+        </form>
     </div>
     <div class="bottom"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
@@ -31,7 +33,6 @@
            .from("p", {delay: 0, x: -20}, "-=.1")
            .from(".button", {delay: 0, x: -20})
 
-        tl1.to(".logo", {repeat: -1, yoyo:true, rotation:2, transformOrigin: 'center'})
            
     </script>
 </body>

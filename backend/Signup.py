@@ -6,7 +6,7 @@ from passlib.hash import bcrypt
 fpdatabase = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    password = "1234",
+    password = "coffeecup90",
     database = "fpdatabase",
 )
 
@@ -49,6 +49,7 @@ def userExists(username):
     sql = "SELECT * FROM user WHERE userID= %s"
     my_cursor.execute(sql, (username,))
     results = my_cursor.fetchone()
+    my_cursor.close()
     if results != None:
         return True
     else:
@@ -56,11 +57,15 @@ def userExists(username):
 
 #Adds a user to the user data base ant then returns true if they were added correctly
 def addUser(username,firstname, middlename, lastname, email, password):
-    initalCheck = userExists(username)
+    initalCheck = userExists(username) # this is inefficient because it still does the rest of the function if there's already a record with that userID
     admin = 0
     my_cursor = fpdatabase.cursor()
     sqlStuff = "INSERT INTO user (userID,firstName, middleName, lastName, email, password, profilePicture, bio, admin) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+<<<<<<< Updated upstream
     my_cursor.execute(sqlStuff, (username, firstname, middlename, lastname, email, passHash(password), " ", " ", admin,))
+=======
+    my_cursor.execute(sqlStuff, (username, firstname, middlename, lastname, email, password, "", "", admin,))
+>>>>>>> Stashed changes
     fpdatabase.commit()
     my_cursor.close()
     afterCheck = userExists(username)
@@ -68,7 +73,6 @@ def addUser(username,firstname, middlename, lastname, email, password):
         return True
     else:
         return False
-    my_cursor.close()
 
 #checks to see if the userID is taken and adds the user if the user does not exist.
 def signUp(username, firstname, middlename, lastname, email, password, password2):
@@ -87,7 +91,7 @@ def signUp(username, firstname, middlename, lastname, email, password, password2
             print("Passwords match")
         else:
             print("Passwords don't match try again")
-            return false
+            return False
         '''
         if passwordChecker(password) == True:
             print("Strong password")
@@ -97,7 +101,6 @@ def signUp(username, firstname, middlename, lastname, email, password, password2
         '''
         if userExists(username) == True:
             print("At least one of the credentials is in use. Try again")
-            signUp()
         else:
             print("The credentials are not in use. Congratulations! You have signed up!")
             addUser(username,firstname, middlename, lastname, email, password)

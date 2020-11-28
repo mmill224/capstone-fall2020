@@ -1,0 +1,22 @@
+<!-- this is the base template for what a user sees when logged in -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common/navigation.css') }}">
+    {% block style %}{% endblock %}
+</head>
+<body>
+    <div class="navigation">
+        <a href="/newsfeed" class="nav-button" id="newsfeed">newsfeed</a>
+        <a href="/my-profile" class="nav-button" id="my-profile">my profile</a>
+        <a href="/create-post" class="nav-button" id="new-post">new post</a>
+        <a href="/events" class="nav-button" id="events">events</a>
+        <a href="/logout" class="nav-button" id="logout">log out</a>
+    </div>
+    {% block content %}{% endblock %}
+</body>
+</html>

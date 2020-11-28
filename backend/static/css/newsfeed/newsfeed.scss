@@ -10,25 +10,6 @@ body{
     font-size: 16px;
 }
 
-.navigation{
-    background-color: #aaccaa;
-    display: table-row;
-    height: 3em;
-    z-index: 10;
-    background-position: 0%;
-}
-
-.nav-button{
-    display: table-cell;
-    text-decoration: none;
-    color: #ffffff;
-    padding-top: .85em;
-    width: 100vw;
-    transition: background-color .3s;
-    &:hover{
-        background-color: #7a9a7a;
-    }
-}
 
 #newsfeed{
     height: fill;
