@@ -1,3 +1,6 @@
+# this file is out of date and is no longer used, I think
+
+
 import mysql.connector
 import mysql
 

@@ -1,11 +1,24 @@
-from flask import Flask, request, render_template, session, redirect, url_for
+from flask import Flask, request, render_template, session, redirect, url_for, flash
 import Login as Login
 import Signup as Signup
-
-user = None
+from werkzeug.utils import secure_filename
+import os
 
 app = Flask(__name__)
 app.secret_key = "jNhMTwWMXZLbCYV" # for session
+
+profilePicDirectory = '/profile-pics'
+postPicDirectory = '/post-pics'
+
+app.config['POST_FOLDER'] = postPicDirectory
+app.config['PROFILE_FOLDER'] = profilePicDirectory
+
+allowed_file_types = {'png', 'jpg', 'jpeg', 'gif'}
+def allow_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_file_types
+
+
+
 
 @app.route('/')
 def landingPage():
@@ -68,7 +81,7 @@ def signInPage():
 
 @app.route('/newsfeed')
 def newsfeedPage():
-    if user == None:
+    if "user" in session:
         query = Login.viewPosts() # uses default parameters for this function, returning all posts by all users
         return render_template("newsfeed.html", posts=query)
     else:
@@ -76,7 +89,7 @@ def newsfeedPage():
 
 @app.route('/events')
 def eventsPage():
-    if user == None:
+    if "user" in session:
         return render_template("events.html")
     else: 
         return redirect(url_for("landingPage"))
@@ -86,11 +99,22 @@ def eventsPage():
 def createPostPage():
     if 'user' in session:
         if request.method == "POST":
-            print("Request method == POST")
+            if 'file' not in request.files:
+                print('File not in request.files')
+                flash('Something is missing. Try again')
+                return redirect(url_for('createPostPage'))
             description = request.form["description"]
-            image = request.form["image"]
-            print(description, '\n', image)
-            # instead, this should add the posts to the database
+            file = request.files["file"]
+            if file.filename == '':
+                print('No file selected')
+                flash('No file selected')
+                return redirect(url_for('createPostPage'))
+            if file and allow_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['POST_FOLDER'], filename)) 
+                print('should be putting a file in post-pics now')
+            else:
+                print('file either does not exist or did not pass the allow_file() test')
             return redirect(url_for("newsfeedPage"))
         else:    
             return render_template("create-post.html")
