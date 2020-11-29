@@ -4,6 +4,7 @@
   height: 3em;
   z-index: 10;
   background-position: 0%;
+  text-align: center;
 }
 
 .nav-button {
@@ -11,7 +12,7 @@
   text-decoration: none;
   color: #ffffff;
   padding-top: .85em;
-  width: 100vw;
+  width: 20vw;
   -webkit-transition: background-color .3s;
   transition: background-color .3s;
 }
@@ -19,4 +20,4 @@
 .nav-button:hover {
   background-color: #7a9a7a;
 }
-/*# sourceMappingURL=nagigation.css.map */
+/*# sourceMappingURL=navigation.css.map */

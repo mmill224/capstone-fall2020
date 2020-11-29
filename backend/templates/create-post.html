@@ -1,0 +1,22 @@
+{% extends "base-template.html" %}
+{% block title %}new post{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create-post/create-post.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common/scrollbar.css') }}">
+{% endblock %}
+{% block content %}
+    <form action="#" method="POST">
+        <div class="card">
+            <div class="container">
+                <textarea name="description" id="" cols="30" rows="10"> style this </textarea>
+            </div>
+            <label class ="button" id="upload">
+                <input type="file" name="image" id="image"  class="button" value="upload image">
+                upload image
+            </label>
+            <div class="image-container"></div>
+            <input type="submit" name="" id="" value="create post" class="button">
+        </div>
+        
+    </form>
+{% endblock %}

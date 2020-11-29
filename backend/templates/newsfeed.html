@@ -1,22 +1,22 @@
 {% extends "base-template.html" %}
-{% block title %}newsfeed{% endblock %}
-{% block style %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/newsfeed/newsfeed.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/common/scrollbar.css') }}">
-{% endblock %}
-{% block content %}
-    {% for post in posts %}
-    <div class="card">
-        <!-- <div class="report-button"></div> -->
-        <div class="profile">
-            <div class="profile-pic-container"><img class="profile-pic" src="assets/images/john-doe-profile-pic.jpg" alt=""></div>
-            <div class="name profile-text">{{post[4]}}</div> 
-            <div class="date profile-text">{{post[3]}}</div>
-        </div>
-        <div class="content">
-            <div class="content-text">{{post[2]}}</div>
-            <img class="content-picture">
-        </div>
-    </div>    
-    {% endfor %}
-{% endblock %}
+    {% block title %}newsfeed{% endblock %}
+    {% block style %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/newsfeed/newsfeed.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/common/scrollbar.css') }}">
+    {% endblock %}
+    {% block content %}
+        {% for post in posts %}
+        <div class="card">
+            <!-- <div class="report-button"></div> -->
+            <div class="profile">
+                <div class="profile-pic-container"><img class="profile-pic" src="assets/images/john-doe-profile-pic.jpg" alt=""></div>
+                <div class="name profile-text">{{post[4]}}</div> 
+                <div class="date profile-text">{{post[3]}}</div>
+            </div>
+            <div class="content">
+                <div class="content-text">{{post[2]}}</div>
+                <img class="content-picture">
+            </div>
+        </div>    
+        {% endfor %}
+    {% endblock %}

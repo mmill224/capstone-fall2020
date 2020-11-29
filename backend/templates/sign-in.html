@@ -8,17 +8,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/common/scrollbar.css') }}">
 </head>
 <body>
-    <div class="top"></div>
-    <div class="logo">
-        <img src="{{ url_for('static', filename='assets/images/placeholder-logo.svg') }}" alt="">
-    </div>
     <div class="card">
         <form action="#" method="POST">    
             <p>username</p>
-            <input type="text" name="username" id="username" placeholder=""></input>
+            <input class="text" type="text" name="username" id="username" placeholder=""></input>
             <p>password</p>
-            <input type="password" name="pass" id="pass" placeholder=""></input>
-            <input type="submit" value="sign un" class="button">
+            <input class="text" type="password" name="pass" id="pass" placeholder=""></input>
+            <input type="submit" class="button" value="sign in">
         </form>
     </div>
     <div class="bottom"></div>
@@ -29,7 +25,7 @@
 
         tl0.from(".logo", {delay: .5, scale: .5, transformOrigin: 'center'}, "=.2")
            .from(".card", {delay: 0, scale: .7})
-           .from("input", {delay: .5, x: -20}, "-=.3")
+           .from(".text", {delay: .5, x: -20}, "-=.3")
            .from("p", {delay: 0, x: -20}, "-=.1")
            .from(".button", {delay: 0, x: -20})
 

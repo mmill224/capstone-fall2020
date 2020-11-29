@@ -36,18 +36,22 @@ p {
 
 .button {
   font-size: 24px;
-  width: 4em;
-  padding: .5em 1.5em;
+  padding: .2em 1em;
   margin: auto;
   margin-top: .8em;
+  font-weight: normal;
   border-radius: 10px;
   color: inherit;
   display: block;
+  border-style: none;
   background-color: #aaccaa;
   color: #ffffff;
   text-decoration: none;
   -webkit-transition: background-color .5s;
   transition: background-color .5s;
+  cursor: pointer;
+  -webkit-text-emphasis: none;
+          text-emphasis: none;
 }
 
 .button:hover {
@@ -58,7 +62,7 @@ p {
   background-color: #bbddbb;
 }
 
-input {
+.text {
   border-style: none;
   border-radius: 10px;
   background-color: #eaefea;
@@ -72,14 +76,14 @@ input {
   transition: background-color .5s;
 }
 
-input:focus {
+.text:focus {
   outline: none;
   -webkit-box-shadow: 1px 1px 8px #d9ded9;
           box-shadow: 1px 1px 8px #d9ded9;
   background-color: #fefffe;
 }
 
-input:hover {
+.text:hover {
   outline: none;
   -webkit-box-shadow: 1px 1px 8px #d9ded9;
           box-shadow: 1px 1px 8px #d9ded9;

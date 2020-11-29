@@ -2,13 +2,8 @@ import mysql.connector
 import re
 from validate_email import validate_email
 from passlib.hash import bcrypt
+import connection
 
-fpdatabase = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    password = "coffeecup90",
-    database = "fpdatabase",
-)
 
 #checks how strong a password is returns true if it is strong
 def passwordChecker(password):
@@ -45,6 +40,7 @@ def passHash(password):
 
 #checks to see if the user is alredy registered in the database
 def userExists(username):
+    fpdatabase = connection.fpdatabase()
     my_cursor = fpdatabase.cursor()
     sql = "SELECT * FROM user WHERE userID= %s"
     my_cursor.execute(sql, (username,))
@@ -57,15 +53,12 @@ def userExists(username):
 
 #Adds a user to the user data base ant then returns true if they were added correctly
 def addUser(username,firstname, middlename, lastname, email, password):
+    fpdatabase = connection.fpdatabase()
     initalCheck = userExists(username) # this is inefficient because it still does the rest of the function if there's already a record with that userID
     admin = 0
     my_cursor = fpdatabase.cursor()
     sqlStuff = "INSERT INTO user (userID,firstName, middleName, lastName, email, password, profilePicture, bio, admin) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-<<<<<<< Updated upstream
-    my_cursor.execute(sqlStuff, (username, firstname, middlename, lastname, email, passHash(password), " ", " ", admin,))
-=======
-    my_cursor.execute(sqlStuff, (username, firstname, middlename, lastname, email, password, "", "", admin,))
->>>>>>> Stashed changes
+    my_cursor.execute(sqlStuff, (username, firstname, middlename, lastname, email, password, " ", " ", admin,))
     fpdatabase.commit()
     my_cursor.close()
     afterCheck = userExists(username)
@@ -76,33 +69,15 @@ def addUser(username,firstname, middlename, lastname, email, password):
 
 #checks to see if the userID is taken and adds the user if the user does not exist.
 def signUp(username, firstname, middlename, lastname, email, password, password2):
-        # is_valid = validate_email(email_address=email,
-        #                           check_regex=True, check_mx=False,
-        #                           smtp_timeout=10, dns_timeout=10, use_blacklist=True)
-        '''
-        if is_valid == True:
-            print("Your email is valid")
+    if password == password2:
+        if addUser(username,firstname, middlename, lastname, email, password):
+            print("User was successfully added to the database")
+            return True
         else:
-            print("Your email is valid")
-            signUp()
-
-        '''
-        if password == password2:
-            print("Passwords match")
-        else:
-            print("Passwords don't match try again")
+            print("Failed to add user")
             return False
-        '''
-        if passwordChecker(password) == True:
-            print("Strong password")
-        else:
-            print("Weak password try again")
-            signUp()
-        '''
-        if userExists(username) == True:
-            print("At least one of the credentials is in use. Try again")
-        else:
-            print("The credentials are not in use. Congratulations! You have signed up!")
-            addUser(username,firstname, middlename, lastname, email, password)
+    else:
+        print("Passwords don't match")
+        return False
 
 
