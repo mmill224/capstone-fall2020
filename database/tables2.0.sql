@@ -10,6 +10,9 @@ CREATE TABLE `fpdatabase`.`user` (
   `admin` BIT(1) DEFAULT FALSE,
   PRIMARY KEY (`userID`));
 
+ALTER TABLE `fpdatabase`.`user` 
+CHANGE COLUMN `password` `password` VARCHAR(500) NOT NULL ;
+
 CREATE TABLE `fpdatabase`.`post` (
   `postID` int NOT NULL AUTO_INCREMENT,
   `image` LONGBLOB NULL,
