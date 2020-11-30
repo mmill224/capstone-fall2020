@@ -37,17 +37,21 @@ p{
 
 .button{
     font-size: 24px;
-    width: 4em;
-    padding: .5em 1.5em;
+    padding: .2em 1em;
+    // width: 4em;
     margin: auto;
     margin-top: .8em;
+    font-weight: normal;
     border-radius: 10px;
     color: inherit;
     display: block;
+    border-style: none;
     background-color: #aaccaa;
     color: #ffffff;
     text-decoration: none;
     transition: background-color .5s;
+    cursor: pointer;
+    text-emphasis: none;
     &:hover{
         background-color: #bbddbb;
     }
@@ -57,7 +61,7 @@ p{
     
 }
 
-input{
+.text{
     border-style: none;
     border-radius: 10px;
     background-color: #eaefea;

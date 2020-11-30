@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #113311;
+    background-color: #eaefea;
+    font-family: 'Montserrat';
+    font-size: 16px;
+    overflow-y: hidden;
+}
+
+#new-post{
+    background-color: #7a9a7a;
+}
+
+.card {
+    background-color: #fafffa;
+    margin: 5em 1.5em;
+    padding: 1em;
+    border-radius: 10px;
+    align-content: center;
+}
+
+#upload{
+    font-size: 16px;
+    padding: .2em;
+    width: 7em;
+    text-align: center;
+}
+
+.container{
+    margin: 1em;
+}
+
+textarea{
+    font-family: 'Montserrat';
+    align-self: center;
+    resize: none;
+    outline: none;
+    margin: 4em;
+    columns: 100;
+    border-style: none;
+    margin: auto;
+    column-count: auto;
+    width: fill;
+    border-radius: 10px;
+    background-color: #eaefea;
+    color: #113311;
+    transition: background-color .5s;
+
+    &:focus{
+        outline: none;
+        box-shadow: 1px 1px 8px #d9ded9;
+        background-color: #fefffe;
+    }
+    
+    &:hover{
+        outline: none;
+        box-shadow: 1px 1px 8px #d9ded9;
+        background-color: #fefffe;
+    }
+}
+
+
+
+.button{
+    font-size: 16px;
+    padding: .2em 1em;
+    // width: 4em;
+    margin: auto;
+    margin-top: .8em;
+    font-weight: normal;
+    border-radius: 10px;
+    color: inherit;
+    display: block;
+    border-style: none;
+    background-color: #aaccaa;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color .5s;
+    cursor: pointer;
+    &:hover{
+        background-color: #bbddbb;
+    }
+    &:focus{
+        background-color: #bbddbb;
+    }
+    
+}
+input[type="file"]{
+    display: none;
+}
+  

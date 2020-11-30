@@ -1,0 +1,34 @@
+<!-- this is the base template for what a user sees when viewing a profile, extended by my-profile and other-profile -->
+<!-- this also extends base-template.html for the navigation bar -->
+
+
+
+
+{% extends "base-template.html" %}
+
+{% block title %}my profile{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/newsfeed/newsfeed.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common/scrollbar.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <div class="profile-pic">
+
+        </div>
+        <div class="profile-details">
+            <div class="name">
+
+            </div>
+            <div class="bio">
+
+            </div>
+        </div>
+    </div>
+    <div class="posts">
+        <!-- insert some logic like newsfeed -->
+    </div>
+{% endblock %}
