@@ -78,11 +78,11 @@ def viewPosts(username=""):
     fpdatabase = connection.fpdatabase()
     my_cursor = fpdatabase.cursor()
     if username == "": # this is the case that we want all posts from all users, and in that case we just want first, last, profile pic
-        my_cursor.execute("SELECT * FROM post order by createdAt desc") # this needs to be a join "Select "
+        my_cursor.execute("SELECT image, description, firstName, lastName, profilePicture from post JOIN user on userID = postUser order by createdAt desc") # this needs to be a join "Select "
         results = my_cursor.fetchall()
         return results
     else: # this is the case where we want JUST the posts from this one user, and we want that joined with first, last, profile pic, and bio ( this is inefficient unfortunately )
-        q = "SELECT * from post inner join user ON postUser = %s order by createdAt desc" # this needs to only get the posts from username (the parameter)
+        q = "SELECT image, description, firstName, lastName, profilePicture from post right join user ON userID = %s WHERE userID = postUser order by createdAt desc" # this needs to only get the posts from username (the parameter)
         my_cursor.execute(q, (username,))
         results = my_cursor.fetchall()
         return results
@@ -112,16 +112,13 @@ def passwordCheck(username,password):
     sql = "SELECT password FROM user WHERE userID = %s" 
     my_cursor.execute(sql, (username,))
     results = my_cursor.fetchone()
-    my_cursor.close()
-    if(results == None):
-        print("There is no record in the database that matches that userID")
-        return False
-    if (password == results[0]):
-        print("Password matched")
+    if (bcrypt.verify(password, results[0])) == True:
+        print("login sucsess")
         return True
     else:
-        print("Password did not match")
+        print("login failed")
         return False
+
 
 #Function allows a admin to delete any user //done
 def deleteUser(admin):
@@ -165,5 +162,12 @@ def getUserInfo(username):
     results = my_cursor.fetchone()
     my_cursor.close()
     return results
+
+#passes a user and a profile picture and sets the new profile picture
+def changeProfilePic(username, newPick):
+    my_cursor = fpdatabase.cursor()
+    update = "UPDATE user SET profilePicture = %s WHERE userID = %s"
+    my_cursor.execute(update, (newPick, username,))
+    fpdatabase.commit()
 
 
