@@ -1,6 +1,5 @@
 import mysql.connector
 import re
-from validate_email import validate_email
 from passlib.hash import bcrypt
 import connection
 
