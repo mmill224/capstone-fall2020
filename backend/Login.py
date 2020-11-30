@@ -40,7 +40,7 @@ def updateBio(username, newBio):
         return True
 
 
-#creates a post into the post database //works
+#creates a post into the post database and returns the postID
 def createPost(image, description, username):
     fpdatabase = connection.fpdatabase()
     my_cursor = fpdatabase.cursor()
@@ -48,6 +48,12 @@ def createPost(image, description, username):
     my_cursor.execute(post, (image, description, username,))
     fpdatabase.commit()
     my_cursor.close()
+
+    my_cursor = fpdatabase.cursor()
+    my_cursor.execute("SELECT postID from post order by createdAt desc")
+    result = my_cursor.fetchone()
+    return result
+
 
 #creates a event into the event database // works
 def createEvent(username):
