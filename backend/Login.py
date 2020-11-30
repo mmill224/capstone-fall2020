@@ -165,6 +165,7 @@ def getUserInfo(username):
 
 #passes a user and a profile picture and sets the new profile picture
 def changeProfilePic(username, newPick):
+    fpdatabase = connection.fpdatabase()
     my_cursor = fpdatabase.cursor()
     update = "UPDATE user SET profilePicture = %s WHERE userID = %s"
     my_cursor.execute(update, (newPick, username,))
