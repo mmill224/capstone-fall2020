@@ -83,18 +83,13 @@ def signUp(username, firstname, middlename, lastname, email, password, password2
             signUp()
 
         '''
-        if password == password2:
-            print("Passwords match")
+        if password == password2 and passwordChecker(password) == True:
+            print("Passwords match and are strong")
+            return True
         else:
-            print("Passwords don't match try again")
-            return false
-        '''
-        if passwordChecker(password) == True:
-            print("Strong password")
-        else:
-            print("Weak password try again")
-            signUp()
-        '''
+            print("Passwords don't match or are not strong try again")
+            return False
+
         if userExists(username) == True:
             print("At least one of the credentials is in use. Try again")
             signUp()
