@@ -4,6 +4,6 @@ def fpdatabase():
     return mysql.connector.connect(
     host = "localhost",
     user = "root",
-    password = "coffeecup90",
+    password = "1645",
     database = "fpdatabase",
 )
