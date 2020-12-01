@@ -68,7 +68,7 @@ def addUser(username,firstname, middlename, lastname, email, password):
 
 #checks to see if the userID is taken and adds the user if the user does not exist.
 def signUp(username, firstname, middlename, lastname, email, password, password2):
-    if password == password2:
+    if password == password2 and passwordChecker(password):
         if addUser(username,firstname, middlename, lastname, email, password):
             print("User was successfully added to the database")
             return True
