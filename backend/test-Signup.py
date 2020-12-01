@@ -13,18 +13,23 @@ example_data1 = {
 
 # use this to remove any records that we don't want permanently.
 # this doesn't really work yet
-def cleanUp(username):
-    my_cursor = fpdatabase.cursor()
-    sql = "DELETE FROM user WHERE userID = %s"
-    my_cursor.execute(sql, username)
-    fpdatabase.commit()
+# def cleanUp(username):
+#     my_cursor = fpdatabase.cursor()
+#     sql = "DELETE FROM user WHERE userID = %s"
+#     my_cursor.execute(sql, username)
+#     fpdatabase.commit()
 
 
 
-def testSignup(username, firstname, middlename, lastname, email, password, password2):
-    print("Testing signUp()... \n")
-    thingToTest.signUp(username, firstname, middlename, lastname, email, password, password2)
-    return
+# def testSignup(username, firstname, middlename, lastname, email, password, password2, expectedOutput):
+#     print("Testing signUp()... \n")
+#     try:
+#         thingToTest.signUp(username, firstname, middlename, lastname, email, password, password2)
+#     except:
+#         #if an exception is thrown
+#     finally:
+#         #code
+#     return
 
 
 test = input("Would you like to test signUp? [y/n]: ")
