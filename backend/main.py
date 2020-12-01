@@ -7,11 +7,11 @@ import os
 app = Flask(__name__)
 app.secret_key = "jNhMTwWMXZLbCYV" # for session
 
-profilePicDirectory = '/profile-pics'
-postPicDirectory = '/post-pics'
+# profilePicDirectory = '/profile-pics'
+# postPicDirectory = '/post-pics'
 
-app.config['POST_FOLDER'] = postPicDirectory
-app.config['PROFILE_FOLDER'] = profilePicDirectory
+app.config['POST_FOLDER'] = os.getcwd() + "\\post-pics"
+app.config['PROFILE_FOLDER'] = os.getcwd() + "\\profile-pics"
 
 allowed_file_types = {'png', 'jpg', 'jpeg', 'gif'}
 def allow_file(filename):
@@ -48,12 +48,12 @@ def signUpPage():
             except:
                 print('Signup.signUp failed')   # debugging
                 return "<p>Not successful</p>"  # should only reach this point if Signup.signup() is broken
-            session["user"] = username # creates a session on successful account creation
+            session["user"] = username          # creates a session on successful account creation
             return redirect(url_for('newsfeedPage')) # signup successful, redirect to newsfeed.html
         else:
-            return render_template("sign-up.html")  # if method != POST
-   # else:  
-        return render_template("newsfeed.html")     # if there is a user
+            return render_template("sign-up.html")      # if method != POST
+    else:  
+        return redirect(url_for('newsfeedPage'))     # if there is a user in session
 
 
 
@@ -68,7 +68,12 @@ def signInPage():
             password = request.form["pass"]
             if username == '' or password == '':
                 return redirect(url_for('signInPage'))
-            success = Login.passwordCheck(username, password)
+            try:
+                success = Login.passwordCheck(username, password)
+            except:
+                flash("Login failed")
+                print("Login failed")   
+                return render_template("sign-in.html")
             if success:                             # if the database check worked, add their username to the session
                 session["user"] = username
                 print("signed in")
@@ -98,28 +103,34 @@ def eventsPage():
 @app.route('/create-post', methods = ["POST", "GET"])
 def createPostPage():
     if 'user' in session:
+
         if request.method == "POST":
-            if 'file' not in request.files:
-                print('File not in request.files')
-                flash('Something is missing. Try again')
-                return redirect(url_for('createPostPage'))
-            description = request.form["description"]
-            file = request.files["file"]
-            if file.filename == '':
-                print('No file selected')
-                flash('No file selected')
-                return redirect(url_for('createPostPage'))
-            if file and allow_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['POST_FOLDER'], filename)) 
-                print('should be putting a file in post-pics now')
+
+            if "image" in request.files:
+                image = request.files["image"]
+                print(image.filename)
+            
             else:
-                print('file either does not exist or did not pass the allow_file() test')
+                print('No file selected')
+                return render_template("create-post.html")    
+            
+            # logic for incrementing filenames, probably a query to the db 
+            filename = secure_filename(image.filename)
+            image.save(os.path.join(app.config['POST_FOLDER'], filename)) 
+            print('should be putting a file in post-pics now')
+            
+            # else:
+            #     print('file either does not exist or did not pass the allow_file() test')
+            
             return redirect(url_for("newsfeedPage"))
+        
         else:    
             return render_template("create-post.html")
+    
     else: 
         return redirect(url_for("landingPage"))
+
+
 
 @app.route('/my-profile')
 def myProfilePage():
