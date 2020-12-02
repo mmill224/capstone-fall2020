@@ -18,6 +18,7 @@ CREATE TABLE `fpdatabase`.`post` (
   `description` VARCHAR(450) NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `postUser` VARCHAR(45) NULL,
+  `imageName` VARCHAR(40) NULL,
   PRIMARY KEY (`postID`),
   INDEX `userID_idx` (`postUser` ASC) VISIBLE,
   CONSTRAINT `postUserID`
