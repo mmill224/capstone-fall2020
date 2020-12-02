@@ -8,6 +8,7 @@ pip install -r file path of Requirements.txt
 
 Database setup
 Make sure the my sql server is running under the server tab select the server status 
+type create databbase fpdatabase in the Query one text area
 open tables sql text file in the backend folder with sql work bench and click the lightning bolt
 
 Database connection setup 
