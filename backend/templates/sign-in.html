@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to Focal Point</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-in/sign-in.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common/scrollbar.css') }}">
+</head>
+<body>
+    <div class="card">
+        <form action="#" method="POST">    
+            <p>username</p>
+            <input class="text" type="text" name="username" id="username" placeholder=""></input>
+            <p>password</p>
+            <input class="text" type="password" name="pass" id="pass" placeholder=""></input>
+            <input type="submit" class="button" value="sign in">
+        </form>
+    </div>
+    <div class="bottom"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script>
+        var tl0 = gsap.timeline({defaults:{duration: .3, ease: Back.easeOut.config(2), opacity: 0}})
+        var tl1 = gsap.timeline({defaults:{duration: 1, delay:1}})
+
+        tl0.from(".logo", {delay: .5, scale: .5, transformOrigin: 'center'}, "=.2")
+           .from(".card", {delay: 0, scale: .7})
+           .from(".text", {delay: .5, x: -20}, "-=.3")
+           .from("p", {delay: 0, x: -20}, "-=.1")
+           .from(".button", {delay: 0, x: -20})
+
+           
+    </script>
+</body>
+</html>

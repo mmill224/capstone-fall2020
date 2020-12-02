@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  color: #113311;
+  background-color: #eaefea;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  overflow-y: hidden;
+  text-align: center;
+}
+
+#new-post {
+  background-color: #7a9a7a;
+}
+
+.card {
+  background-color: #fafffa;
+  margin: 5em 1.5em;
+  padding: 1em;
+  border-radius: 10px;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+#upload {
+  font-size: 16px;
+  padding: .2em;
+  width: 7em;
+  text-align: center;
+}
+
+.container {
+  margin: 1em;
+}
+
+textarea {
+  font-family: 'Montserrat';
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  resize: none;
+  outline: none;
+  margin: 4em;
+  -webkit-columns: 100;
+          columns: 100;
+  border-style: none;
+  margin: auto;
+  -webkit-column-count: auto;
+          column-count: auto;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  width: fill;
+  border-radius: 10px;
+  background-color: #eaefea;
+  color: #113311;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+}
+
+textarea:focus {
+  outline: none;
+  -webkit-box-shadow: 1px 1px 8px #d9ded9;
+          box-shadow: 1px 1px 8px #d9ded9;
+  background-color: #fefffe;
+}
+
+textarea:hover {
+  outline: none;
+  -webkit-box-shadow: 1px 1px 8px #d9ded9;
+          box-shadow: 1px 1px 8px #d9ded9;
+  background-color: #fefffe;
+}
+
+.button {
+  font-size: 16px;
+  padding: .2em 1em;
+  margin: auto;
+  margin-top: .8em;
+  font-weight: normal;
+  border-radius: 10px;
+  color: inherit;
+  display: block;
+  border-style: none;
+  background-color: #aaccaa;
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #bbddbb;
+}
+
+.button:focus {
+  background-color: #bbddbb;
+}
+
+input[type="file"] {
+  display: none;
+}
+/*# sourceMappingURL=create-post.css.map */

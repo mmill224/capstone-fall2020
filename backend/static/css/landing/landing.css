@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  color: #113311;
+  background-color: #eaefea;
+  font-family: 'Montserrat';
+  text-align: center;
+  font-size: 16px;
+  overflow: hidden;
+}
+
+.logo {
+  margin-top: 10em;
+  text-align: center;
+  -webkit-transform: rotate(-2deg);
+          transform: rotate(-2deg);
+}
+
+.hero-section {
+  margin-top: 3em;
+  padding: 3em;
+}
+
+.hero-section p {
+  padding-top: 1em;
+  color: #224422;
+}
+
+.button-section {
+  margin: 1em;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 24px;
+}
+
+.button-section .button {
+  width: 4em;
+  padding: .5em 1.5em;
+  margin: auto;
+  margin-top: .8em;
+  border-radius: 10px;
+  text-decoration: none;
+  display: block;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+}
+
+.button-section .sign-in {
+  color: #ffffff;
+  background-color: #99cc99;
+}
+
+.button-section .sign-in:hover {
+  background-color: #bbddbb;
+}
+
+.button-section .sign-up {
+  background-color: #f5faf5;
+}
+
+.button-section .sign-up:hover {
+  background-color: #ffffff;
+}
+
+@media (min-width: 1600px) {
+  .grid-container {
+    margin: 8em;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+  }
+  .showcase {
+    background-color: #000000;
+    height: 150px;
+    width: 150px;
+    display: inline-block;
+    margin: .2em;
+  }
+  .showcase-container {
+    background-color: #ffffff;
+    display: contents;
+  }
+  .logo {
+    text-align: left;
+  }
+  .left {
+    text-align: left;
+  }
+  .button-section {
+    padding-top: 6em;
+  }
+  .right {
+    margin-top: 10em;
+  }
+}
+/*# sourceMappingURL=landing.css.map */

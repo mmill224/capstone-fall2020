@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+*{
+    overflow-x: hidden;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    color: #113311;
+    background-color: #eaefea;
+    font-family: 'Montserrat';
+    font-size: 16px;
+    overflow-y: hidden;
+}
+
+.logo{
+    margin: 0;
+    padding: 0;
+    width: 8em;
+    margin-top: 5em;
+    text-align: center;
+    overflow: hidden;
+    position: absolute;
+}
+
+p{
+    font-size: 1.5em;
+}
+
+.card{
+    background-color: #fafffa;
+    margin: 5em 1.5em;
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.button{
+    font-size: 24px;
+    padding: .2em 1em;
+    // width: 4em;
+    margin: auto;
+    margin-top: .8em;
+    font-weight: normal;
+    border-radius: 10px;
+    color: inherit;
+    display: block;
+    border-style: none;
+    background-color: #aaccaa;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color .5s;
+    cursor: pointer;
+    text-emphasis: none;
+    &:hover{
+        background-color: #bbddbb;
+    }
+    &:focus{
+        background-color: #bbddbb;
+    }
+    
+}
+
+.text{
+    border-style: none;
+    border-radius: 10px;
+    background-color: #eaefea;
+    color: #113311;
+    width: fill;
+    padding-left: 1em;
+    height: 1.5em;
+    transition: background-color .5s;
+
+    &:focus{
+        outline: none;
+        box-shadow: 1px 1px 8px #d9ded9;
+        background-color: #fefffe;
+    }
+    
+    &:hover{
+        outline: none;
+        box-shadow: 1px 1px 8px #d9ded9;
+        background-color: #fefffe;
+    }
+}
+
+// @media (min-width: 1000px){
+//     body{
+//         font-size: 18px;
+//         display: grid;
+//         grid-template: 
+//             'logo   top    top'
+//             'copy   card   card'
+//             'bottom bottom bottom'
+//         ;
+//     }
+
+//     .top{
+//         grid-area: 'top';
+//     }
+//     .bottom{
+//         grid-area: 'bottom';
+//     }
+
+//     .card {
+//         width: 30em;
+//         grid-area: 'card';
+//     }
+// }
