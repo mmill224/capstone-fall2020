@@ -4,18 +4,17 @@ CREATE TABLE `fpdatabase`.`user` (
   `middleName` VARCHAR(45) NULL,
   `lastName` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `profilePicture` LONGBLOB NULL,
+  `password` VARCHAR(500) NOT NULL,
+  `profilePicture` BIT(1) NULL DEFAULT FALSE
   `bio` VARCHAR(450) NULL,
   `admin` BIT(1) DEFAULT FALSE,
   PRIMARY KEY (`userID`));
 
-ALTER TABLE `fpdatabase`.`user` 
-CHANGE COLUMN `password` `password` VARCHAR(500) NOT NULL ;
+
 
 CREATE TABLE `fpdatabase`.`post` (
   `postID` int NOT NULL AUTO_INCREMENT,
-  `image` LONGBLOB NULL,
+  `image` BIT(1) NULL DEFAULT FALSE,
   `description` VARCHAR(450) NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `postUser` VARCHAR(45) NULL,
@@ -26,6 +25,7 @@ CREATE TABLE `fpdatabase`.`post` (
     REFERENCES `fpdatabase`.`user` (`userID`)
     ON DELETE SET NULL
     ON UPDATE CASCADE);
+
 
 CREATE TABLE `fpdatabase`.`event` (
   `eventID` int NOT NULL AUTO_INCREMENT,
