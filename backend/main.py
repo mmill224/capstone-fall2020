@@ -105,22 +105,31 @@ def createPostPage():
     if 'user' in session:
 
         if request.method == "POST":
+            imagePresent = False # initialize 
 
             if "image" in request.files:
                 image = request.files["image"]
                 print(image.filename)
-            
+                imagePresent = True
             else:
                 print('No file selected')
-                return render_template("create-post.html")    
+
+            if "description" in request.form:
+                description = request.form["description"]
+            else:
+                description = ''
+
+            query = Login.createPost(image=imagePresent, description=description, username=session['user'])
             
-            # logic for incrementing filenames, probably a query to the db 
-            filename = secure_filename(image.filename)
-            image.save(os.path.join(app.config['POST_FOLDER'], filename)) 
+            fileExtenstion = '.' + image.filename.split('.')[1]
+            newfilename = str(query[0]) + fileExtenstion
+            print(os.path.join(app.config['POST_FOLDER'], newfilename, fileExtenstion))
+            
+            image.save(os.path.join(app.config['POST_FOLDER'], image.filename)) 
+            os.rename(os.path.join(app.config['POST_FOLDER'], image.filename), os.path.join(app.config['POST_FOLDER'], newfilename))
             print('should be putting a file in post-pics now')
             
-            # else:
-            #     print('file either does not exist or did not pass the allow_file() test')
+
             
             return redirect(url_for("newsfeedPage"))
         
