@@ -1,3 +1,7 @@
+--To create a new database and tables
+
+CREATE DATABASE `fpdatabase`;
+
 CREATE TABLE `fpdatabase`.`user` (
   `userID` VARCHAR(45) NOT NULL,
   `firstName` VARCHAR(45) NOT NULL,
@@ -5,7 +9,7 @@ CREATE TABLE `fpdatabase`.`user` (
   `lastName` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(500) NOT NULL,
-  `profilePicture` BIT(1) NULL DEFAULT FALSE
+  `profilePicture` BIT(1) NULL DEFAULT FALSE,
   `bio` VARCHAR(450) NULL,
   `admin` BIT(1) DEFAULT FALSE,
   PRIMARY KEY (`userID`));
@@ -47,6 +51,8 @@ ADD CONSTRAINT `userID`
   REFERENCES `fpdatabase`.`user` (`userID`)
   ON DELETE SET NULL
   ON UPDATE CASCADE;
+
+
 
 CREATE TABLE `fpdatabase`.`postcomment` (
   `comment` VARCHAR(500) NOT NULL,
