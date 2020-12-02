@@ -9,13 +9,12 @@
         <div class="card">
             <!-- <div class="report-button"></div> -->
             <div class="profile">
-                <div class="profile-pic-container"><img class="profile-pic" src="assets/images/john-doe-profile-pic.jpg" alt=""></div>
-                <div class="name profile-text">{{post[4]}}</div> 
-                <div class="date profile-text">{{post[3]}}</div>
+                <div class="profile-pic-container"><img class="profile-pic" src="{{post[5]}}" alt=""></div>
+                <div class="name profile-text">{{post[3]}} {{post[4]}}</div> 
             </div>
             <div class="content">
                 <div class="content-text">{{post[2]}}</div>
-                <img class="content-picture">
+                <img src="{{ post[6] }}" class="content-picture" >
             </div>
         </div>    
         {% endfor %}

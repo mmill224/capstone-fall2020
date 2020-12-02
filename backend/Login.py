@@ -41,14 +41,16 @@ def updateBio(username, newBio):
 
 
 #creates a post into the post database and returns the postID
-def createPost(image, description, username):
+def createPost(image, description, username, imageName):
     fpdatabase = connection.fpdatabase()
     my_cursor = fpdatabase.cursor()
-    post = "INSERT INTO post (image,description, postUser) VALUES (%s,%s,%s)"
-    my_cursor.execute(post, (image, description, username,))
+    post = "INSERT INTO post (image, description, postUser, imageName) VALUES (%s,%s,%s, %s)"
+    my_cursor.execute(post, (image, description, username, imageName,))
     fpdatabase.commit()
     my_cursor.close()
 
+def getMostRecentPostId():
+    fpdatabase = connection.fpdatabase()
     my_cursor = fpdatabase.cursor()
     my_cursor.execute("SELECT postID from post order by createdAt desc")
     result = my_cursor.fetchone()
@@ -84,11 +86,11 @@ def viewPosts(username=""):
     fpdatabase = connection.fpdatabase()
     my_cursor = fpdatabase.cursor()
     if username == "": # this is the case that we want all posts from all users, and in that case we just want first, last, profile pic
-        my_cursor.execute("SELECT image, description, firstName, lastName, profilePicture from post JOIN user on userID = postUser order by createdAt desc") # this needs to be a join "Select "
+        my_cursor.execute("SELECT postID, image, description, firstName, lastName, profilePicture, imageName from post JOIN user on userID = postUser order by createdAt desc") # this needs to be a join "Select "
         results = my_cursor.fetchall()
         return results
     else: # this is the case where we want JUST the posts from this one user, and we want that joined with first, last, profile pic, and bio ( this is inefficient unfortunately )
-        q = "SELECT image, description, firstName, lastName, profilePicture from post right join user ON userID = %s WHERE userID = postUser order by createdAt desc" # this needs to only get the posts from username (the parameter)
+        q = "SELECT postID, image, description, firstName, lastName, profilePicture, imageName from post right join user ON userID = %s WHERE userID = postUser order by createdAt desc" # this needs to only get the posts from username (the parameter)
         my_cursor.execute(q, (username,))
         results = my_cursor.fetchall()
         return results

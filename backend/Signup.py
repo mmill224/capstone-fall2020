@@ -57,7 +57,7 @@ def addUser(username,firstname, middlename, lastname, email, password):
     admin = 0
     my_cursor = fpdatabase.cursor()
     sqlStuff = "INSERT INTO user (userID,firstName, middleName, lastName, email, password, profilePicture, bio, admin) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    my_cursor.execute(sqlStuff, (username, firstname, middlename, lastname, email, passHash(password), " ", " ", admin,))
+    my_cursor.execute(sqlStuff, (username, firstname, middlename, lastname, email, passHash(password), False, "", admin,))
     fpdatabase.commit()
     my_cursor.close()
     afterCheck = userExists(username)

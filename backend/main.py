@@ -3,6 +3,7 @@ import Login as Login
 import Signup as Signup
 from werkzeug.utils import secure_filename
 import os
+import ServePosts
 
 app = Flask(__name__)
 app.secret_key = "jNhMTwWMXZLbCYV" # for session
@@ -10,7 +11,7 @@ app.secret_key = "jNhMTwWMXZLbCYV" # for session
 # profilePicDirectory = '/profile-pics'
 # postPicDirectory = '/post-pics'
 
-app.config['POST_FOLDER'] = os.getcwd() + "\\post-pics"
+app.config['POST_FOLDER'] = os.path.join(os.getcwd(), 'post-pics')
 app.config['PROFILE_FOLDER'] = os.getcwd() + "\\profile-pics"
 
 allowed_file_types = {'png', 'jpg', 'jpeg', 'gif'}
@@ -87,7 +88,14 @@ def signInPage():
 @app.route('/newsfeed')
 def newsfeedPage():
     if "user" in session:
-        query = Login.viewPosts() # uses default parameters for this function, returning all posts by all users
+        query = list(ServePosts.servePosts())
+        for post in query:
+            post = list(post)
+            print(post)
+            if post[1]:
+                pathToImage = os.path.join(app.config["POST_FOLDER"], post[6])
+                post[6] = pathToImage
+                print(post[6])
         return render_template("newsfeed.html", posts=query)
     else:
         return redirect(url_for("landingPage"))
@@ -106,21 +114,35 @@ def createPostPage():
 
         if request.method == "POST":
 
-            if "image" in request.files:
+            if request.files["image"]:
                 image = request.files["image"]
                 print(image.filename)
+                imagePresent = True
+                print("something")
+            else:
+                imagePresent = False
+                print('No file selected')
+
+            if "description" in request.form:
+                description = request.form["description"]
+                print(request.form["description"])
+            else:
+                description = ''
+
+                
+            if imagePresent:
+                fileExtenstion = '.' + image.filename.split('.')[1]
+                newfilename = str(Login.getMostRecentPostId()[0]) + fileExtenstion
+                print(os.path.join(app.config['POST_FOLDER'], newfilename, fileExtenstion))
+                Login.createPost(image=imagePresent, description=description, username=session['user'], imageName=newfilename)
+
+                image.save(os.path.join(app.config['POST_FOLDER'], image.filename)) 
+                os.rename(os.path.join(app.config['POST_FOLDER'], image.filename), os.path.join(app.config['POST_FOLDER'], newfilename))
+                print('should be putting a file in post-pics now')
             
             else:
-                print('No file selected')
-                return render_template("create-post.html")    
-            
-            # logic for incrementing filenames, probably a query to the db 
-            filename = secure_filename(image.filename)
-            image.save(os.path.join(app.config['POST_FOLDER'], filename)) 
-            print('should be putting a file in post-pics now')
-            
-            # else:
-            #     print('file either does not exist or did not pass the allow_file() test')
+                Login.createPost(image=imagePresent, description=description, username=session['user'], imageName=None)
+
             
             return redirect(url_for("newsfeedPage"))
         
