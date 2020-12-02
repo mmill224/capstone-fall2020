@@ -12,13 +12,11 @@ app.secret_key = "jNhMTwWMXZLbCYV" # for session
 # postPicDirectory = '/post-pics'
 
 app.config['POST_FOLDER'] = os.path.join(os.getcwd(), 'post-pics')
-app.config['PROFILE_FOLDER'] = os.getcwd() + "\\profile-pics"
+app.config['PROFILE_FOLDER'] = os.path.join(os.getcwd(), 'profile-pics')
 
 allowed_file_types = {'png', 'jpg', 'jpeg', 'gif'}
 def allow_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_file_types
-
-
 
 
 @app.route('/')
@@ -33,7 +31,7 @@ def landingPage():
 # this function needs to be refactored, including the Signup.signUp function
 @app.route('/sign-up', methods = ["POST", "GET"])
 def signUpPage(): 
-    if "user" not in session: # if there is a user in session
+    if "user" not in session: # if there is not a user in session (this logic is backwards)
         if request.method == "POST":
             print('request method == POST')     # debugging
             username = request.form["username"]
@@ -48,7 +46,7 @@ def signUpPage():
                 Signup.signUp(username, firstname, '', lastname, '', password1, password2)
             except:
                 print('Signup.signUp failed')   # debugging
-                return "<p>Not successful</p>"  # should only reach this point if Signup.signup() is broken
+                return redirect(url_for("signUpPage"))  # should only reach this point if Signup.signup() is broken
             session["user"] = username          # creates a session on successful account creation
             return redirect(url_for('newsfeedPage')) # signup successful, redirect to newsfeed.html
         else:
@@ -93,7 +91,7 @@ def newsfeedPage():
             post = list(post)
             print(post)
             if post[1]:
-                pathToImage = os.path.join(app.config["POST_FOLDER"], post[6])
+                pathToImage = os.path.join(app.config["POST_FOLDER"], post[6]) #post[6] is where the post picture is located if there is one
                 post[6] = pathToImage
                 print(post[6])
         return render_template("newsfeed.html", posts=query)
