@@ -135,8 +135,9 @@ def testSignin(testData):
     button2 = driver.find_element_by_xpath("/html/body/div[1]/form/input[3]")
     button2.click()
 
-    # If we're on the newsfeed -> sign in successful
-    if (driver.title == "newsfeed"):
+    time.sleep(1)
+    # As long as we're not redirected to the sign in page again -> sign in successful
+    if (driver.title != "Sign in to Focal Point"):
         print("User: ", testData["username"], "sign in successful")
     else:
         print("User: ", testData["username"], "sign in NOT successful")
