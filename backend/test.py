@@ -15,7 +15,8 @@ example_data1 = {
     "lastname":     "Lawrence",
     "email":        "rkerby18@gmail.com",
     "password1":     "Password123!",
-    "password2":    "Password123!",
+    "password2":     "Password123!",
+    "signInPassword":  "Password123!", # used for sign in testing- should be same if sign in passes    
 }
 
 # Test data 2- does not add user because passwords entered do not match
@@ -49,6 +50,7 @@ example_data4 = {
     "email":        "email@gmail.com",
     "password1":     "Password123!",
     "password2":    "Password123!",
+    "signInPassword":  "Password123!",
 }
 
 # Test data 5- does not add user because username is >45
@@ -62,13 +64,25 @@ example_data5 = {
     "password2":    "Password123!",
 }
 
+# Test data 6- Signup passes, but sign in fails- (simulates user entering wrong password on sign in page)
+example_data6 = {
+    "username":     "mDaniels",
+    "firstname":    "Miranda",
+    "middlename":   "Elizabeth",
+    "lastname":     "Daniels",
+    "email":        "email@gmail.com",
+    "password1":    "MightyMiranda2798!",
+    "password2":    "MightyMiranda2798!",
+    "signInPassword":    "DifferentPassword123!",    # used for sign in testing- should be same if sign in passes
+}
+
 # testSignup function takes a dict as input (see above test cases ^^^) and uses chromedriver to sign up to the website
 def testSignup(testData):
     driver = webdriver.Chrome(PATH)
     driver.get("http://127.0.0.1:5000/") # URL generated for the website (this may differ between machines..?)
 
     time.sleep(1) # Need to pause a sec after each chromedriver command to ensure proper data entry (safe)
-    button = driver.find_element_by_xpath("/html/body/div/div[2]/div[2]/a[2]")
+    button = driver.find_element_by_xpath("/html/body/div/div[2]/div[2]/a[2]") # signup button xpath
     button.click()
 
     time.sleep(2)
@@ -100,6 +114,36 @@ def testSignup(testData):
     else:
         print("User: ", testData["username"], " NOT added")
 
+# testSignin function takes a dict as input (see above test cases ^^^) and uses chromedriver to sign in to the website (if the account exists)
+def testSignin(testData):
+    driver = webdriver.Chrome(PATH)
+    driver.get("http://127.0.0.1:5000/") # URL generated for the website (this may differ between machines..?)
+
+    time.sleep(1) # Need to pause a sec after each chromedriver command to ensure proper data entry (safe)
+    button = driver.find_element_by_xpath("/html/body/div/div[2]/div[2]/a[1]") # sign in button xpath
+    button.click()
+
+    time.sleep(2)
+    driver_username = driver.find_element_by_name("username")
+    driver_username.send_keys(testData["username"])
+
+    time.sleep(1)
+    driver_password1 = driver.find_element_by_name("pass")
+    driver_password1.send_keys(testData["signInPassword"])
+
+    time.sleep(1)
+    button2 = driver.find_element_by_xpath("/html/body/div[1]/form/input[3]")
+    button2.click()
+
+    # If we're on the newsfeed -> sign in successful
+    if (driver.title == "newsfeed"):
+        print("User: ", testData["username"], "sign in successful")
+    else:
+        print("User: ", testData["username"], "sign in NOT successful")
+    
+    driver.close()
+
+
 # userExists function (used to tell if user was added to the database or not)
 def userExists(username):
     fpdatabase = connection.fpdatabase()
@@ -129,10 +173,12 @@ cleanUp(example_data2)
 cleanUp(example_data3)
 cleanUp(example_data4)
 cleanUp(example_data5)
+cleanUp(example_data6)
 
 # Test Case 1 (user should be added)
 try:
     testSignup(example_data1)
+    testSignin(example_data1)
 except:
     print("test1- Something went wrong")
 else:
@@ -157,6 +203,7 @@ else:
 # Test Case 4 (user will be added with username <45)
 try: 
     testSignup(example_data4)
+    testSignin(example_data4)
 except:
     print("test4- Something went wrong")
 else:
@@ -170,9 +217,19 @@ except:
 else:
     pass
 
+# Test Case 6 (Sign up successful, sign in fails- wrong password)
+try: 
+    testSignup(example_data6)
+    testSignin(example_data6)
+except:
+    print("test6- Something went wrong")
+else:
+    pass
+
 # Final Clean up removing test users
 cleanUp(example_data1)
 cleanUp(example_data2)
 cleanUp(example_data3)
 cleanUp(example_data4)
 cleanUp(example_data5)
+cleanUp(example_data6)
