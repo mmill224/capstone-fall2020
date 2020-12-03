@@ -20,3 +20,9 @@ Command prompt setup:
 Cd into the backend folder by typing "cd" and then the file path to the backend folder,
 Type "python main.py"
 Copy the link it gives on the bottom line and paste it into a browser and press enter.
+
+Testing setup:
+import selenium
+Must have chromedriver downloaded and installed in the correct location (see PATH line in backend/test.py)
+Run main.py, and in seperate terminal run test.py
+Some test cases will work and some won't, this is intentional- see documentation in backend/test.py
