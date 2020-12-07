@@ -14,7 +14,9 @@
             </div>
             <div class="content">
                 <div class="content-text">{{post[2]}}</div>
-                <img src="{{ post[6] }}" class="content-picture" >
+                {% if post[1] %}
+                <img src="{{ url_for('static', filename='post-pics/' + post[6]) }}" class="content-picture" >
+                {% endif %}
             </div>
         </div>    
         {% endfor %}
