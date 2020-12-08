@@ -78,4 +78,16 @@ body {
 .date {
   margin-left: 12em;
 }
+
+.content-text {
+  margin: 1em;
+  padding: 1em;
+  padding-bottom: 0em;
+}
+
+.content-picture {
+  margin: auto;
+  display: block;
+  max-width: 75vw;
+}
 /*# sourceMappingURL=newsfeed.css.map */

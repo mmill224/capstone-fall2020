@@ -90,7 +90,7 @@ def viewPosts(username=""):
         results = my_cursor.fetchall()
         return results
     else: # this is the case where we want JUST the posts from this one user, and we want that joined with first, last, profile pic, and bio ( this is inefficient unfortunately )
-        q = "SELECT postID, image, description, firstName, lastName, profilePicture, imageName from post right join user ON userID = %s WHERE userID = postUser order by createdAt desc" # this needs to only get the posts from username (the parameter)
+        q = "SELECT postID, image, description, firstName, lastName, profilePicture, imageName, bio from post right join user ON userID = %s WHERE userID = postUser order by createdAt desc" # this needs to only get the posts from username (the parameter)
         my_cursor.execute(q, (username,))
         results = my_cursor.fetchall()
         return results

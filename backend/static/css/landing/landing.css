@@ -11,14 +11,14 @@ body {
 }
 
 .logo {
-  margin-top: 10em;
+  margin-top: 5em;
   text-align: center;
   -webkit-transform: rotate(-2deg);
           transform: rotate(-2deg);
 }
 
 .hero-section {
-  margin-top: 3em;
+  margin-top: 0em;
   padding: 3em;
 }
 
