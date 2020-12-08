@@ -110,7 +110,7 @@ def newsfeedPage():
 
         query = ServePosts.servePosts()
 
-        return render_template("newsfeed.html", posts=query)
+        return render_template("newsfeed.html", posts=query, user=session['user'])
 
     else:
 
@@ -135,12 +135,10 @@ def createPostPage():
 
             if request.files["image"]:
                 image = request.files["image"]
-                print(image.filename)
                 imagePresent = True
 
             else:
                 imagePresent = False
-                print('No file selected')
 
             if "description" in request.form:
 
@@ -170,29 +168,64 @@ def createPostPage():
             return redirect(url_for("newsfeedPage"))
         
         else:    
-            return render_template("create-post.html")
+            return render_template("create-post.html", user=session['user'])
     
     else: 
         return redirect(url_for("landingPage"))
 
 
 
-@app.route('/my-profile')
-def myProfilePage():
+@app.route('/<profile>')
+def profilePage(profile):
+    myProfile = False
     if 'user' in session:
-        user = session["user"]
-        print(user)
-        query = Login.viewPosts(user)
-        return render_template("profile-template.html", profile = query)
+        if profile == session['user']: # viewing my own profile - should have edit functionality
+            myProfile = True        
+        
+        query = Login.viewPosts(profile)
+        return render_template("profile-template.html", profile=query, myProfile=myProfile)
     else:
         return redirect(url_for("landingPage"))
 
+
+
+@app.route('/edit', methods=['POST', 'GET'])
+def editPage():
+    if 'user' in session:
+        if request.method == 'POST':
+            newProfilePic = request.files['profilePic']
+            newBio = request.form['bio']
+
+        
+        else:
+            return render_template('edit-profile.html')
+    
+    else:
+        return redirect(url_for('landingPage'))
 
 @app.route('/logout')
 def logout():
     session.pop("user", None)
     print('Session has ended!')
     return redirect(url_for("landingPage"))
+
+
+# simply adds a picture to the profile-pics directory
+def saveProfilePic(pic, user):
+    fileExtenstion = '.' + pic.filename.split('.')[1]    
+    newFileName = user + fileExtenstion
+
+    pic.save(os.path.join(app.config['PROFILE-FOLDER'], pic.filename))
+    os.rename(os.path.join(app.config['PROFILE-FOLDER'], pic.filename), os.path.join(app.config['PROFILE-FOLDER'], newFileName))
+
+    return False
+
+
+# simply adds a picture to the post-pics directory
+def savePostPic(pic, post):
+
+    return False
+
 
 
 # @app.route('/{user}')

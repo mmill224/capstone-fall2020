@@ -1,9 +1,3 @@
-<!-- this is the base template for what a user sees when viewing a profile, extended by my-profile and other-profile -->
-<!-- this also extends base-template.html for the navigation bar -->
-
-
-
-
 {% extends "base-template.html" %}
 
 {% block title %}my profile{% endblock %}
@@ -15,20 +9,43 @@
 {% endblock %}
 
 {% block content %}
-    <div class="header">
-        <div class="profile-pic">
 
-        </div>
-        <div class="profile-details">
-            <div class="name">
 
-            </div>
-            <div class="bio">
 
-            </div>
-        </div>
+<div class="profile-section">
+
+    <div class="hero-profile-pic">
+        
+        <img src="url_for('static', filename = 'profile-pics/' + post[5]" alt="" class="hero-pic">
+    
     </div>
-    <div class="posts">
-        <!-- insert some logic like newsfeed -->
+
+    <div class="name">{{ post[0][3] }} {{ post[0][4] }}</div>
+    <div class="bio">{{ post[0][7] }}</div>
+</div>
+
+
+{% if myProfile %}
+<!-- show edit button -->
+{% endif %}
+
+{% for post in posts %}
+<div class="card">
+    <div class="profile">
+        
+        <div class="profile-pic-container"><img class="profile-pic" src="{{post[5]}}" alt=""></div>
+        <div class="name profile-text">{{post[3]}} {{post[4]}}</div> 
+    
     </div>
+    
+    <div class="content">
+    
+        <div class="content-text">{{post[2]}}</div>
+        {% if post[1] %}
+        <img src="{{ url_for('static', filename='post-pics/' + post[6]) }}" class="content-picture" >
+        {% endif %}
+    
+    </div>
+</div>    
+{% endfor %}
 {% endblock %}
